@@ -1,0 +1,16 @@
+1) Parse .ARFF file
+2)
+  Create CLUSTER MBR
+  Create SUPER MBR
+3)
+  Create GUI where :
+  "a user specifies a point and the program returns the closest point to them"
+  * need to simulate when the point is not within the cluset mbr and the
+  program then pings the server from the client device in order to get new clustermbr
+  
+    a) input* a point
+    b) output* the nearest point in the cluster MBR to said point
+    c)
+
+5) DELETE USER INPUT FOR FILES NAME?
+6)
