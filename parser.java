@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class parser
 {
-  W public static void main(String[] args)
+  public static void main(String[] args)
   {
     //USER INPUT
     Scanner inPut = new Scanner(System.in);
@@ -45,7 +45,6 @@ public class parser
       {
         //TODO: PARSE FILE FOR X AND Y
         //LLL DELIMITER FOR ,
-        System.out.println(one.x);
         // System.out.println("startline"); //DEBUG
         // String data = myReader.nextLine();
         // System.out.println(data); //DEBUG
