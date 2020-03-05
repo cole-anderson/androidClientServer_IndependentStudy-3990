@@ -55,23 +55,11 @@ public class parser
   {
     try
     {
-      //*****************************************************************
-      int size = 0;
-      File allocater = new File(fname);
-      Scanner readAll = new Scanner(allocater);
-      // while (/*READ FILE TO FIND # OF LINES*/) //FIXME*********
-      // {
-      //   System.out.println(size);
-      //   size++;
-      // }
-      System.out.println("final size: " + size);
-      readAll.close(); //close file
-
       String seperated[];
+      int size = 1;
       object one = new object();
-      one.x = new double[3];
-      one.y = new double[3];
-      //*****************************************************************
+      one.x = new double[25];
+      one.y = new double[25];
 
       File myObj = new File(fname);
       Scanner myReader = new Scanner(myObj);
