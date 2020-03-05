@@ -5,6 +5,7 @@
 //Headers:
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,7 +13,9 @@ public class parser
 {
   public static void main(String[] args)
   {
-    //declarations:
+
+    /* NOTE:TEMPORARY COMMENTED OUT START
+    //Declarations:
 
     //USER INPUT
     Scanner inPut = new Scanner(System.in);
@@ -21,7 +24,7 @@ public class parser
     if (fileName.charAt(fileName.length() - 4) == '.' || fileName.charAt(fileName.length() - 5) == '.')
     {
       System.out.println(".csv or ariff extension present in string\n"); //REMOVE
-      parseCSV(fileName);                                                //parse the csv file
+      parseFile(fileName);                                                //parse the csv file
     }
     else
     {
@@ -30,27 +33,76 @@ public class parser
       //HERE IS WHERE I WILL TEST TXT FILE FOR CREATING MBR
       //-------------------------------*
     }
-  }
-  //CSV ARIFF FILE PARSER
-  public static void parseCSV(String fname)
-  {
+    */
+    //NOTE:TEMPORARY COMMENTED OUT END
 
+    //TEMP
+    parseFile("test.txt");
+  }
+  /*
+
+  */
+  // public static void findClosest(//data structure)
+  // {
+  //   //
+  // }
+
+  /*
+    Function to parse the csv or arff file to determine the x,y coordinates
+    of our points and number/which cluster those points belong to
+  */
+  public static void parseFile(String fname)
+  {
     try
     {
-      System.out.println("filename is: " + fname); //REMOVE
-      //PARSE THE CSV FIL
+      //*****************************************************************
+      int size = 0;
+      File allocater = new File(fname);
+      Scanner readAll = new Scanner(allocater);
+      // while (/*READ FILE TO FIND # OF LINES*/) //FIXME*********
+      // {
+      //   System.out.println(size);
+      //   size++;
+      // }
+      System.out.println("final size: " + size);
+      readAll.close(); //close file
+
+      String seperated[];
+      object one = new object();
+      one.x = new double[3];
+      one.y = new double[3];
+      //*****************************************************************
+
       File myObj = new File(fname);
       Scanner myReader = new Scanner(myObj);
+      myReader.useDelimiter(",");
       //LOOP
+      int i = 0;
+      int j = 0;
       while (myReader.hasNextLine())
       {
         //TODO: PARSE FILE FOR X AND Y
-        //LLL DELIMITER FOR ,
-        // System.out.println("startline"); //DEBUG
-        // String data = myReader.nextLine();
-        // System.out.println(data); //DEBUG
+
+        System.out.println("//ITERATION" + i + "\n"); //DEBUG
+        String data = myReader.nextLine();
+        seperated = data.split(",", 100);
+        for (String a : seperated)
+        {
+          if (j % 2 == 0)
+          {
+            one.x[i] = Double.parseDouble(a);
+            System.out.println("x" + one.x[i]);
+          }
+          else
+          {
+            one.y[i] = Double.parseDouble(a);
+            System.out.println("y" + one.y[i]);
+          }
+          j++; //iterate between x and y
+        }
+        i++; //iteration through object
       }
-      myReader.close();
+      myReader.close(); //close file
     }
     catch (FileNotFoundException e)
     {
@@ -59,35 +111,35 @@ public class parser
     }
   }
   //BUFFERFILE PARSER
-  public static void parseBuffer(String fname)
-  {
-    String[] input;
-    double x;
-    double y;
-    try
-    {
-      System.out.println("filename is: " + fname); //REMOVE
-      //PARSE THE BUFFER FILE
-      File myObj = new File(fname);
-      Scanner myReader = new Scanner(myObj);
-      while (myReader.hasNextLine())
-      {
-        //PARSE FILE FOR # OF CLUSTERS
-
-        //REMOVE *----------------------------------
-
-        String data = myReader.nextLine();
-        System.out.println(data); //DEBUG
-        //-----------------------------------------*
-      }
-      myReader.close();
-    }
-    catch (FileNotFoundException e)
-    {
-      System.out.println("error with file\n");
-      e.printStackTrace();
-    }
-  }
+  // public static void parseBuffer(String fname)
+  // {
+  //   String[] input;
+  //   double x;
+  //   double y;
+  //   try
+  //   {
+  //     System.out.println("filename is: " + fname); //REMOVE
+  //     //PARSE THE BUFFER FILE
+  //     File myObj = new File(fname);
+  //     Scanner myReader = new Scanner(myObj);
+  //     while (myReader.hasNextLine())
+  //     {
+  //       //PARSE FILE FOR # OF CLUSTERS
+  //
+  //       //REMOVE *----------------------------------
+  //
+  //       String data = myReader.nextLine();
+  //       System.out.println(data); //DEBUG
+  //       //-----------------------------------------*
+  //     }
+  //     myReader.close();
+  //   }
+  //   catch (FileNotFoundException e)
+  //   {
+  //     System.out.println("error with file\n");
+  //     e.printStackTrace();
+  //   }
+  // }
   // public static void mbrCreate()
   // {
   //   //

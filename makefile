@@ -8,7 +8,10 @@ JC = javac
 				$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
-				parser.java
+				parser.java \
+				object.java
+
+MAIN = parser
 
 default: classes
 
