@@ -5,12 +5,15 @@
 //Headers:
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class parser
 {
   public static void main(String[] args)
   {
+    //declarations:
+
     //USER INPUT
     Scanner inPut = new Scanner(System.in);
     System.out.println("Enter .CSV format file name");
@@ -23,16 +26,14 @@ public class parser
     else
     {
       System.out.println("n.csv extension not present in string\n"); //REMOVE
-      //parseBuffer(fileName);
+      //-------------------------------*TODO
+      //HERE IS WHERE I WILL TEST TXT FILE FOR CREATING MBR
+      //-------------------------------*
     }
   }
   //CSV ARIFF FILE PARSER
   public static void parseCSV(String fname)
   {
-    //declarations:
-    object largestX = new object();
-    object largestY = new object();
-    object currentP = new object();
 
     try
     {
