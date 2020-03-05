@@ -56,17 +56,14 @@ public class parser
     try
     {
       String seperated[];
-      int size = 1;
-      object one = new object();
-      one.x = new double[25];
-      one.y = new double[25];
-
+      int size = 25;
+      int i = 0;
+      int j = 0;
+      object one[] = new object[size];
       File myObj = new File(fname);
       Scanner myReader = new Scanner(myObj);
       myReader.useDelimiter(",");
       //LOOP
-      int i = 0;
-      int j = 0;
       while (myReader.hasNextLine())
       {
         //TODO: PARSE FILE FOR X AND Y
@@ -76,15 +73,17 @@ public class parser
         seperated = data.split(",", 100);
         for (String a : seperated)
         {
+          //creates new object
+          one[i] = new object();
           if (j % 2 == 0)
           {
-            one.x[i] = Double.parseDouble(a);
-            System.out.println("x" + one.x[i]);
+            one[i].x = Double.parseDouble(a);
+            System.out.println("x" + one[i].x);
           }
           else
           {
-            one.y[i] = Double.parseDouble(a);
-            System.out.println("y" + one.y[i]);
+            one[i].y = Double.parseDouble(a);
+            System.out.println("y" + one[i].y);
           }
           j++; //iterate between x and y
         }
