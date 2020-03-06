@@ -19,24 +19,31 @@ public class parser
 {
   public static void main(String[] args)
   {
+    //TIME CHECK
+    long startT = System.currentTimeMillis();
     //USER INPUT
-    Scanner inPut = new Scanner(System.in);
-    System.out.println("Enter .CSV format file name");
-    String fileName = inPut.nextLine();
-    if (fileName.charAt(fileName.length() - 4) == '.' || fileName.charAt(fileName.length() - 5) == '.')
-    {
-      System.out.println(".csv or ariff extension present in string\n"); //REMOVE
-      parseFile(fileName);                                               //parse the csv file
-    }
-    else
-    {
-      System.out.println(".csv extension not present in string\n"); //REMOVE
-      parseFile(fileName);
-    }
+    // Scanner inPut = new Scanner(System.in);
+    // System.out.println("Enter .CSV format file name");
+    // String fileName = inPut.nextLine();
+    // if (fileName.charAt(fileName.length() - 4) == '.' || fileName.charAt(fileName.length() - 5) == '.')
+    // {
+    //   System.out.println(".csv or ariff extension present in string\n"); //REMOVE
+    //   parseFile(fileName);                                               //parse the csv file
+    // }
+    // else
+    // {
+    //   System.out.println(".csv extension not present in string\n"); //REMOVE
+    //   parseFile(fileName);
+    // }
+    parseFile("mainnew.csv");
+
+    long endT = System.currentTimeMillis();
+    long totalT = endT - startT;
+    System.out.println("running time: " + totalT);
   }
   //****************************************************************************
   /*
-
+    Function to find the closest point to a given point
   */
   public static void findClosest(coordinates c, int arSize)
   {
@@ -45,13 +52,16 @@ public class parser
     Double closestY = 0.0;
     Double tempDistX = 10000.00;
     Double tempDistY = 10000.00;
-
     //User input NOTE: convert to GUI*
-    Scanner inPut = new Scanner(System.in);
-    System.out.println("Enter your coordinate x"); //TEMP
-    pointX = inPut.nextDouble();
-    System.out.println("Enter your coordinate y"); //TEMP
-    pointY = inPut.nextDouble();
+    // Scanner inPut = new Scanner(System.in);
+    // System.out.println("Enter your coordinate x"); //TEMP
+    // pointX = inPut.nextDouble();
+    // System.out.println("Enter your coordinate y"); //TEMP
+    // pointY = inPut.nextDouble();
+    //REMOVE
+    pointX = 509.284;
+    pointY = 980.01;
+    //END
     /*
     For loop that linearly searches our array for the point
     "closest" (closestX, closestY) to our "point" (pointX, pointY) point.
