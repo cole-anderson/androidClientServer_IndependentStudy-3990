@@ -15,9 +15,7 @@ public class parser
 {
   public static void main(String[] args)
   {
-    /* NOTE:TEMPORARY COMMENTED OUT START
     //Declarations:
-
     //USER INPUT
     Scanner inPut = new Scanner(System.in);
     System.out.println("Enter .CSV format file name");
@@ -25,20 +23,13 @@ public class parser
     if (fileName.charAt(fileName.length() - 4) == '.' || fileName.charAt(fileName.length() - 5) == '.')
     {
       System.out.println(".csv or ariff extension present in string\n"); //REMOVE
-      parseFile(fileName);                                                //parse the csv file
+      parseFile(fileName);                                               //parse the csv file
     }
     else
     {
       System.out.println("n.csv extension not present in string\n"); //REMOVE
-      //-------------------------------*TODO
-      //HERE IS WHERE I WILL TEST TXT FILE FOR CREATING MBR
-      //-------------------------------*
+      parseFile(fileName);
     }
-    */
-    //NOTE:TEMPORARY COMMENTED OUT END
-
-    //TEMP
-    parseFile("test.txt");
   }
   /*
 
@@ -50,7 +41,7 @@ public class parser
 
   /*
     Function to parse the csv or arff file to determine the x,y coordinates
-    of our points and number/which cluster those points belong to
+    and store them in a respective data structures per cluster
   */
   public static void parseFile(String fname)
   {
@@ -71,8 +62,6 @@ public class parser
       //LOOP
       while (myReader.hasNextLine())
       {
-        //TODO: PARSE FILE FOR X AND Y
-
         System.out.println("//ITERATION" + i + "\n"); //DEBUG
         String data = myReader.nextLine();
         seperated = data.split(",", 100);
