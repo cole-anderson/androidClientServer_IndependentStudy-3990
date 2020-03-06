@@ -8,15 +8,15 @@ public class tester
     //DEBUG VALUES:
     double x[] = {4, 4, 2, 2};
     double y[] = {2, 4, 2, 4};
-    double pointX = 3.75;
+    double pointX = 3.75; //1
     double pointY = 3.75;
 
     //NOTE:START
     //Start of Function Declarations(reset at each function call)
-    double arSize = 4; //TODO: temp change to array.size()
-    double closestX = 0;
+    double arSize = 4;   //TODO: temp change to array.size()
+    double closestX = 0; //2
     double closestY = 0;
-    double tempDistX = 10000000;
+    double tempDistX = 10000000; //3
     double tempDistY = 10000000;
 
     /*
