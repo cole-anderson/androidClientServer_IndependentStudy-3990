@@ -9,7 +9,7 @@ JC = javac
 
 CLASSES = \
 				parser.java \
-				object.java
+				coordinates.java
 
 MAIN = parser
 

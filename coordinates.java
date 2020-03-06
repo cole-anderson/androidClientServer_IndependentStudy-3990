@@ -1,7 +1,7 @@
 /*
-  Used as a container for point data from parsed file.
-  X and Y coordinate taken from parsed data and turned into
-  object
+  coordinates is an object that contains 2 vectors
+  x is the x coordinate of the points in the given cluster
+  y is the y coordinate of the points in the given cluster
 */
 //Headers:
 import java.io.File;
@@ -16,12 +16,12 @@ public class coordinates
 {
   Vector x;
   Vector y;
-  object(Vector x, Vector y)
+  coordinates(Vector x, Vector y)
   {
     this.x = x;
     this.y = y;
   }
-  object()
+  coordinates()
   {
   }
 }
