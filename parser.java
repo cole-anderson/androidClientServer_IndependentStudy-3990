@@ -41,56 +41,63 @@ public class parser
     //NOTE : MAKE COMPARISION BETWEEN OBJECTS NOT BETWEEN Double AND OBJECTS
 
     //Temporary objects to do comparisons
-    coordinates point = new coordinates();
-    point.x = new Vector(); //1
-    point.y = new Vector(); //1
-    coordinates closest = new coordinates();
-    closest.x = new Vector(); //2
-    closest.y = new Vector(); //2
-    coordinates tempDist = new coordinates();
-    tempDist.x = new Vector(); //3
-    tempDist.y = new Vector(); //3
-    tempDist.x.add(100000);
-    tempDist.x.add(100000);
-    coordinates inLoop = new coordinates();
-    inLoop.x = new Vector(); //4
-    inLoop.y = new Vector(); //4
+    // coordinates point = new coordinates();
+    // point.x = new Vector(); //1
+    // point.y = new Vector(); //1
+    // coordinates closest = new coordinates();
+    // closest.x = new Vector(); //2
+    // closest.y = new Vector(); //2
+    // coordinates tempDist = new coordinates();
+    // tempDist.x = new Vector(); //3
+    // tempDist.y = new Vector(); //3
+    // tempDist.x.add(10.00);
+    // tempDist.x.add(10.00);
+    // coordinates inLoop = new coordinates();
+    // inLoop.x = new Vector(); //4
+    // inLoop.y = new Vector(); //4
+    Double pointX, pointY;
+    Double closestX = 0.0;
+    Double closestY = 0.0;
+    Double tempDistX = 10000.00;
+    Double tempDistY = 10000.00;
 
     //User input NOTE: convert to GUI*
     Scanner inPut = new Scanner(System.in);
     System.out.println("Enter your coordinate x"); //TEMP
-    Double point1 = inPut.nextDouble();
-    point.x.add(point1);
+    pointX = inPut.nextDouble();
+    //Double point1 = inPut.nextDouble();
+    //point.x.add(point1);
     System.out.println("Enter your coordinate y"); //TEMP
-    Double point2 = inPut.nextDouble();
-    point.y.add(point2);
+    pointY = inPut.nextDouble();
+    //Double point2 = inPut.nextDouble();
+    //point.y.add(point2);
     //System.out.println("x" + point.x + "y" + point.y); //TEMP
 
     //DEBUG:
     System.out.println(c.x.get(0));
     Double val = c.x.get(0);
+    System.out.println("fuck you java" + val);
     //END
     /*
     For loop that linearly searches our array for the point
     "closest" (closestX, closestY) to our "point" (pointX, pointY) point.
     */
-    // for (int i = 0; i < arSize; i++)
-    // {
-    //   if (/*Math.abs(c.x.get(i) - point.x.get(0)) <= tempDist.x.get(0)*/)
-    //   {
-    //     System.out.println("were in");
-    //     // if (Math.abs((c.y.get(i)) - pointY) <= tempDistY)
-    //     // {
-    //     //   closestX = c.x.get(i);
-    //     //   closestY = c.y.get(i);
-    //     //   tempDistX = Math.abs(c.x.get(i) - pointX);
-    //     //   tempDistY = Math.abs(c.y.get(i) - pointY);
-    //     // }
-    //   }
-    //   //clear inLoopVector
-    // }
+    for (int i = 0; i < arSize; i++)
+    {
+      if (Math.abs(c.x.get(i) - pointX) <= tempDistX)
+      {
+
+        if (Math.abs((c.y.get(i)) - pointY) <= tempDistY)
+        {
+          closestX = c.x.get(i);
+          closestY = c.y.get(i);
+          tempDistX = Math.abs(c.x.get(i) - pointX);
+          tempDistY = Math.abs(c.y.get(i) - pointY);
+        }
+      }
+    }
     //Prints the next closest point
-    //System.out.println("closest x,y: " + closestX + "," + closestY);
+    System.out.println("closest x,y: " + closestX + "," + closestY);
   }
   //****************************************************************************
   /*

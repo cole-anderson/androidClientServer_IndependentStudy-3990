@@ -14,9 +14,9 @@ import java.util.Scanner;
 
 public class coordinates
 {
-  Vector x;
-  Vector y;
-  coordinates(Vector x, Vector y)
+  Vector<Double> x;
+  Vector<Double> y;
+  coordinates(Vector<Double> x, Vector<Double> y)
   {
     this.x = x;
     this.y = y;
