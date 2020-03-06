@@ -1,9 +1,3 @@
-@relation mainnew-weka.filters.unsupervised.attribute.Remove-R1
-
-@attribute 769.948669 numeric
-@attribute 2982.984131 numeric
-
-@data
 863.275757,3005.275635
 690.196411,3333.704834
 1197.556519,2984.470215
