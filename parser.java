@@ -6,14 +6,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.*;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+@SuppressWarnings("unchecked")
 
 public class parser
 {
   public static void main(String[] args)
   {
-
     /* NOTE:TEMPORARY COMMENTED OUT START
     //Declarations:
 
@@ -53,49 +54,59 @@ public class parser
   */
   public static void parseFile(String fname)
   {
-    try
-    {
-      String seperated[];
-      int size = 25;
-      int i = 0;
-      int j = 0;
-      object one[] = new object[size];
-      File myObj = new File(fname);
-      Scanner myReader = new Scanner(myObj);
-      myReader.useDelimiter(",");
-      //LOOP
-      while (myReader.hasNextLine())
-      {
-        //TODO: PARSE FILE FOR X AND Y
 
-        System.out.println("//ITERATION" + i + "\n"); //DEBUG
-        String data = myReader.nextLine();
-        seperated = data.split(",", 100);
-        for (String a : seperated)
-        {
-          //creates new object
-          one[i] = new object();
-          if (j % 2 == 0)
-          {
-            one[i].x = Double.parseDouble(a);
-            System.out.println("x" + one[i].x);
-          }
-          else
-          {
-            one[i].y = Double.parseDouble(a);
-            System.out.println("y" + one[i].y);
-          }
-          j++; //iterate between x and y
-        }
-        i++; //iteration through object
-      }
-      myReader.close(); //close file
-    }
-    catch (FileNotFoundException e)
-    {
-      System.out.println("error with file\n");
-      e.printStackTrace();
-    }
+    object test = new object();
+    test.x = new Vector();
+    test.y = new Vector();
+    test.x.add(1);
+    System.out.println("test " + test.x[0]);
+    // Vector v = new Vector();
+    // v.add(1);
+    // System.out.println("vector: " + v);
+    // try
+    // {
+    //   String seperated[];
+    //   int size = 25;
+    //   int i = 0;
+    //   int j = 0;
+    //   object one[] = new object[size];
+    //   File myObj = new File(fname);
+    //   Scanner myReader = new Scanner(myObj);
+    //   myReader.useDelimiter(",");
+    //   //LOOP
+    //   while (myReader.hasNextLine())
+    //   {
+    //     //TODO: PARSE FILE FOR X AND Y
+    //
+    //     System.out.println("//ITERATION" + i + "\n"); //DEBUG
+    //     String data = myReader.nextLine();
+    //     seperated = data.split(",", 100);
+    //     for (String a : seperated)
+    //     {
+    //       //creates new object
+    //       one[i] = new object();
+    //       if (j % 2 == 0)
+    //       {
+    //         one[i].x = Double.parseDouble(a);
+    //         System.out.println("x" + one[i].x);
+    //       }
+    //       else
+    //       {
+    //         one[i].y = Double.parseDouble(a);
+    //         System.out.println("y" + one[i].y);
+    //       }
+    //       j++; //iterate between x and y
+    //     }
+    //     i++; //iteration through object
+    //   }
+    //   myReader.close(); //close file
+    // }
+    // catch (FileNotFoundException e)
+    // {
+    //   System.out.println("error with file\n");
+    //   e.printStackTrace();
+    // }
+    //
   }
   //BUFFERFILE PARSER
   // public static void parseBuffer(String fname)
