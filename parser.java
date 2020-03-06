@@ -27,7 +27,7 @@ public class parser
     }
     else
     {
-      System.out.println("n.csv extension not present in string\n"); //REMOVE
+      System.out.println(".csv extension not present in string\n"); //REMOVE
       parseFile(fileName);
     }
   }
@@ -79,8 +79,8 @@ public class parser
           }
           j++; //iterate between x and y
         }
-        i++; //iteration through coordinates
-      }
+        i++;            //iteration through coordinates
+      }                 //end file reading while
       myReader.close(); //close file
     }
     catch (FileNotFoundException e)
