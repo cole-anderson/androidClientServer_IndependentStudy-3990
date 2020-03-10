@@ -19,24 +19,13 @@ public class parser
 {
   public static void main(String[] args)
   {
-    //TIME CHECK
+    //START PROGRAM
     long startT = System.currentTimeMillis();
-    //USER INPUT
-    // Scanner inPut = new Scanner(System.in);
-    // System.out.println("Enter .CSV format file name");
-    // String fileName = inPut.nextLine();
-    // if (fileName.charAt(fileName.length() - 4) == '.' || fileName.charAt(fileName.length() - 5) == '.')
-    // {
-    //   System.out.println(".csv or ariff extension present in string\n"); //REMOVE
-    //   parseFile(fileName);                                               //parse the csv file
-    // }
-    // else
-    // {
-    //   System.out.println(".csv extension not present in string\n"); //REMOVE
-    //   parseFile(fileName);
-    // }
-    parseFile("mainnew.csv");
 
+    String fileName = "test.txt"; //FILENAME NOTE
+    parseFile(fileName);
+
+    //END PROGRAM
     long endT = System.currentTimeMillis();
     long totalT = endT - startT;
     System.out.println("running time: " + totalT);
@@ -85,7 +74,7 @@ public class parser
   }
   //****************************************************************************
   /*
-    Function to parse the csv or arff file to determine the x,y coordinates
+    Function to parse arff file to determine the x,y coordinates
     and store them in a respective data structures per cluster
   */
   public static void parseFile(String fname)
@@ -108,9 +97,9 @@ public class parser
       //LOOP
       while (myReader.hasNextLine())
       {
-        // System.out.println("//ITERATIOdN" + i + "\n"); //DEBUG
+
         String data = myReader.nextLine();
-        seperated = data.split(",", 100);
+        seperated = data.split(",");
         for (String a : seperated)
         {
           if (j % 2 == 0)
@@ -125,7 +114,8 @@ public class parser
           }
           j++; //iterate between x and y
         }
-        i++;            //iteration through coordinates
+        i++;
+        //iteration through coordinates
       }                 //end file reading while
       myReader.close(); //close file
       arraySize = i;
