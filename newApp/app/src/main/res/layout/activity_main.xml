@@ -54,6 +54,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit" />
+
+        <TextView
+            android:id="@+id/outputNum"
+            android:layout_width="227dp"
+            android:layout_height="62dp"
+            android:text="@string/out" />
     </LinearLayout>
 
 </RelativeLayout>

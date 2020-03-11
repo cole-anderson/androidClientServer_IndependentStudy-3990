@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     String name, email;
-    int favoriteNumber;
+    double favoriteNumber;
 
     EditText nameInput;
     EditText emailInput;
@@ -34,14 +34,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 name = nameInput.getText().toString();
                 email = emailInput.getText().toString();
-                favoriteNumber = Integer.valueOf(favoriteNumberInput.getText().toString());
+                favoriteNumber = Double.valueOf(favoriteNumberInput.getText().toString());
 
                 showToast(name);
                 showToast(email);
                 showToast(String.valueOf(favoriteNumber));
             }
         });
-
     }
     private void showToast(String text) {
         Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
