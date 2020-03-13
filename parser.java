@@ -1,6 +1,10 @@
 /*
-  File Parser
-  .cvs .ariff
+  Backend:
+  Java program that parses a file for (x,y) datapoints and stores them in a
+  coordinates object that has two parameters:
+                                            vector of type double x
+                                            vector of type double y
+  The program is also able to find the closest point to a given point
 */
 //Headers:
 import java.io.File;
@@ -15,68 +19,37 @@ public class parser
 {
   public static void main(String[] args)
   {
-    //Declarations:
-    //USER INPUT
-    // Scanner inPut = new Scanner(System.in);
-    // System.out.println("Enter .CSV format file name");
-    // String fileName = inPut.nextLine();
-    // if (fileName.charAt(fileName.length() - 4) == '.' || fileName.charAt(fileName.length() - 5) == '.')
-    // {
-    //   System.out.println(".csv or ariff extension present in string\n"); //REMOVE
-    //   parseFile(fileName);                                               //parse the csv file
-    // }
-    // else
-    // {
-    //   System.out.println(".csv extension not present in string\n"); //REMOVE
-    //   parseFile(fileName);                                          //REMOVE
-    // }
-    parseFile("test.txt"); //REMOVE
+    //START PROGRAM
+    long startT = System.currentTimeMillis();
+
+    String fileName = "test.txt"; //FILENAME NOTE
+    parseFile(fileName);
+
+    //END PROGRAM
+    long endT = System.currentTimeMillis();
+    long totalT = endT - startT;
+    System.out.println("running time: " + totalT);
   }
   //****************************************************************************
   /*
-
+    Function to find the closest point to a given point
   */
   public static void findClosest(coordinates c, int arSize)
   {
-    //NOTE : MAKE COMPARISION BETWEEN OBJECTS NOT BETWEEN Double AND OBJECTS
-
-    //Temporary objects to do comparisons
-    // coordinates point = new coordinates();
-    // point.x = new Vector(); //1
-    // point.y = new Vector(); //1
-    // coordinates closest = new coordinates();
-    // closest.x = new Vector(); //2
-    // closest.y = new Vector(); //2
-    // coordinates tempDist = new coordinates();
-    // tempDist.x = new Vector(); //3
-    // tempDist.y = new Vector(); //3
-    // tempDist.x.add(10.00);
-    // tempDist.x.add(10.00);
-    // coordinates inLoop = new coordinates();
-    // inLoop.x = new Vector(); //4
-    // inLoop.y = new Vector(); //4
     Double pointX, pointY;
     Double closestX = 0.0;
     Double closestY = 0.0;
     Double tempDistX = 10000.00;
     Double tempDistY = 10000.00;
-
     //User input NOTE: convert to GUI*
-    Scanner inPut = new Scanner(System.in);
-    System.out.println("Enter your coordinate x"); //TEMP
-    pointX = inPut.nextDouble();
-    //Double point1 = inPut.nextDouble();
-    //point.x.add(point1);
-    System.out.println("Enter your coordinate y"); //TEMP
-    pointY = inPut.nextDouble();
-    //Double point2 = inPut.nextDouble();
-    //point.y.add(point2);
-    //System.out.println("x" + point.x + "y" + point.y); //TEMP
-
-    //DEBUG:
-    System.out.println(c.x.get(0));
-    Double val = c.x.get(0);
-    System.out.println("fuck you java" + val);
+    // Scanner inPut = new Scanner(System.in);
+    // System.out.println("Enter your coordinate x"); //TEMP
+    // pointX = inPut.nextDouble();
+    // System.out.println("Enter your coordinate y"); //TEMP
+    // pointY = inPut.nextDouble();
+    //REMOVE
+    pointX = 509.284;
+    pointY = 980.01;
     //END
     /*
     For loop that linearly searches our array for the point
@@ -101,7 +74,7 @@ public class parser
   }
   //****************************************************************************
   /*
-    Function to parse the csv or arff file to determine the x,y coordinates
+    Function to parse arff file to determine the x,y coordinates
     and store them in a respective data structures per cluster
   */
   public static void parseFile(String fname)
@@ -124,9 +97,9 @@ public class parser
       //LOOP
       while (myReader.hasNextLine())
       {
-        // System.out.println("//ITERATIOdN" + i + "\n"); //DEBUG
+
         String data = myReader.nextLine();
-        seperated = data.split(",", 100);
+        seperated = data.split(",");
         for (String a : seperated)
         {
           if (j % 2 == 0)
@@ -141,7 +114,8 @@ public class parser
           }
           j++; //iterate between x and y
         }
-        i++;            //iteration through coordinates
+        i++;
+        //iteration through coordinates
       }                 //end file reading while
       myReader.close(); //close file
       arraySize = i;

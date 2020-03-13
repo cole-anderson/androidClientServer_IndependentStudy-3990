@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">findClosestP</string>
+    <string name="enter_location_x_y">Enter Location(x,y)</string>
+    <string name="enter_point_x_y">enter point (x,y)</string>
+    <string name="findclosest">FindClosest</string>
+</resources>
