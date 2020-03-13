@@ -41,7 +41,7 @@
         android:layout_toLeftOf="@+id/linearLayout2"
         android:ems="10"
         android:hint="X coordinate"
-        android:inputType="number" />
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/yCoordinateInput"
@@ -55,7 +55,7 @@
         android:layout_marginRight="83dp"
         android:ems="10"
         android:hint="Y coordinate"
-        android:inputType="number" />
+        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/outputNum"
