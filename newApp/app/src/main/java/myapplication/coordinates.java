@@ -12,8 +12,8 @@ import java.util.*;
 public class coordinates
 {
 
-  public Vector<Double> x;
-  public Vector<Double> y;
+  public static Vector<Double> x;
+  public static Vector<Double> y;
   public coordinates(Vector<Double> x, Vector<Double> y)
   {
     this.x = x;

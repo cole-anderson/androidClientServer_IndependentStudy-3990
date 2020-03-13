@@ -1,5 +1,4 @@
 package myapplication;
-//import package.coordObj.coordinates;
 
 import android.os.Bundle;
 import android.view.View;
@@ -31,10 +30,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //****************
-        coordObj.coordinates cluster = new coordObj.coordinates();
-        cluster.x = new Vector();
-        cluster.y = new Vector();
+        //**************** TEST VALUES
+        coordObj.coordinates clusterT = new coordObj.coordinates();
+        clusterT.x = new Vector();
+        clusterT.y = new Vector();
+
+        clusterT.x.add(Double.parseDouble("5.0"));
+        clusterT.y.add(Double.parseDouble("6.0"));
+
         //****************
 
         xCoordinateInput = (EditText) findViewById(R.id.xCoordinateInput);
@@ -59,10 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 tempPointx = Double.parseDouble(xCoordinateInput.getText().toString());
                 tempPointy = Double.parseDouble(yCoordinateInput.getText().toString());
                 outputPoint = tempPointx + tempPointy;
-                outputNum.setText(String.valueOf(outputPoint));
 
+                //uh
+                outputNum.setText(String.valueOf(coordObj.coordinates.x.get(0)));
+
+                double testD = parserFile.parser.tester(600.00);
                 //debug call&
-                //showToast(String.valueOf(tempPoint));//dead
+                showToast(String.valueOf(testD));//dead
             }
         });
     }

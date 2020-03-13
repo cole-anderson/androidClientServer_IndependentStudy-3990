@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package parserFile;
 
 /*
   Backend:
@@ -33,6 +33,10 @@ public class parser
     System.out.println("running time: " + totalT);
   }
   //****************************************************************************
+  public static double tester(double outout)
+  {
+    return outout;
+  }
   /*
     Function to find the closest point to a given point
   */
