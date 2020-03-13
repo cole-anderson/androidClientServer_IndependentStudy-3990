@@ -1,3 +1,5 @@
+package com.example.myapplication;
+
 /*
   Backend:
   Java program that parses a file for (x,y) datapoints and stores them in a
@@ -34,13 +36,13 @@ public class parser
   /*
     Function to find the closest point to a given point
   */
-  public static void findClosest(coordinates c, int arSize)
+  public static void findClosest(coordObj.coordinates c, int arSize)
   {
-    Double pointX, pointY;
-    Double closestX = 0.0;
-    Double closestY = 0.0;
-    Double tempDistX = 10000.00;
-    Double tempDistY = 10000.00;
+    double pointX, pointY;
+    double closestX = 0.0;
+    double closestY = 0.0;
+    double tempDistX = 10000.00;
+    double tempDistY = 10000.00;
     //User input NOTE: convert to GUI*
     // Scanner inPut = new Scanner(System.in);
     // System.out.println("Enter your coordinate x"); //TEMP
@@ -81,7 +83,7 @@ public class parser
   {
     int num = 0;
     int arraySize = 0;
-    coordinates cluster = new coordinates();
+    coordObj.coordinates cluster = new coordObj.coordinates();
     cluster.x = new Vector();
     cluster.y = new Vector();
     try
@@ -90,7 +92,7 @@ public class parser
       int size = 25;
       int i = 0;
       int j = 0;
-      coordinates one[] = new coordinates[size];
+      coordObj.coordinates one[] = new coordObj.coordinates[size];
       File myObj = new File(fname);
       Scanner myReader = new Scanner(myObj);
       myReader.useDelimiter(",");
