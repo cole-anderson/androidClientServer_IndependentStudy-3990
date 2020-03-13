@@ -11,11 +11,13 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     String name, email;
-    double favoriteNumber;
+    double xCoordinate;
+    double yCoordinate;
 
     EditText nameInput;
     EditText emailInput;
-    EditText favoriteNumberInput;
+    EditText xCoordinateInput;
+    EditText yCoordinateInput;
 
     Button submitButton;
 
@@ -24,21 +26,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nameInput = (EditText) findViewById(R.id.nameInput);
-        emailInput = (EditText) findViewById(R.id.emailInput);
-        favoriteNumberInput = (EditText) findViewById(R.id.favoriteNumberInput);
+        //nameInput = (EditText) findViewById(R.id.nameInput);
+        //emailInput = (EditText) findViewById(R.id.emailInput);
+        xCoordinateInput = (EditText) findViewById(R.id.xCoordinateInput);
+        yCoordinateInput = (EditText) findViewById(R.id.yCoordinateInput);
 
         submitButton = (Button) findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                name = nameInput.getText().toString();
-                email = emailInput.getText().toString();
-                favoriteNumber = Double.valueOf(favoriteNumberInput.getText().toString());
+                //name = nameInput.getText().toString();
+                //email = emailInput.getText().toString();
+                xCoordinate = Double.valueOf(xCoordinateInput.getText().toString());
+                yCoordinate = Double.valueOf(yCoordinateInput.getText().toString());
 
-                showToast(name);
-                showToast(email);
-                showToast(String.valueOf(favoriteNumber));
+                //showToast(name);
+                //showToast(email);
+                //showToast(String.valueOf(xCoordinate));
+                //showToast(String.valueOf(yCoordinate));
+                showToast(String.valueOf(xCoordinate + yCoordinate));
             }
         });
     }
