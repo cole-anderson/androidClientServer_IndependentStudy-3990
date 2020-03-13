@@ -1,5 +1,5 @@
-package com.example.myapplication;
-import package.coordinates;
+package myapplication;
+//import package.coordObj.coordinates;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import myapplication.R;
+
 import java.util.Vector;
 
 //import android.support.v7.app.AppCompatActivity;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //****************
-        coordinates cluster = new coordinates();
+        coordObj.coordinates cluster = new coordObj.coordinates();
         cluster.x = new Vector();
         cluster.y = new Vector();
         //****************

@@ -11,14 +11,15 @@ import java.util.*;
 
 public class coordinates
 {
-  Vector<Double> x;
-  Vector<Double> y;
-  coordinates(Vector<Double> x, Vector<Double> y)
+
+  public Vector<Double> x;
+  public Vector<Double> y;
+  public coordinates(Vector<Double> x, Vector<Double> y)
   {
     this.x = x;
     this.y = y;
   }
-  coordinates()
+  public coordinates()
   {
   }
 }

@@ -36,7 +36,7 @@ public class parser
   /*
     Function to find the closest point to a given point
   */
-  public static void findClosest(coordinates c, int arSize)
+  public static void findClosest(coordObj.coordinates c, int arSize)
   {
     double pointX, pointY;
     double closestX = 0.0;
@@ -83,7 +83,7 @@ public class parser
   {
     int num = 0;
     int arraySize = 0;
-    coordinates cluster = new coordinates();
+    coordObj.coordinates cluster = new coordObj.coordinates();
     cluster.x = new Vector();
     cluster.y = new Vector();
     try
@@ -92,7 +92,7 @@ public class parser
       int size = 25;
       int i = 0;
       int j = 0;
-      coordinates one[] = new coordinates[size];
+      coordObj.coordinates one[] = new coordObj.coordinates[size];
       File myObj = new File(fname);
       Scanner myReader = new Scanner(myObj);
       myReader.useDelimiter(",");
