@@ -1,17 +1,19 @@
 package com.example.myapplication;
+import package.coordinates;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.Vector;
+
+//import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    String name, email;
     double tempPointx;
     double tempPointy;
     double outputPoint;
@@ -26,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //****************
+        coordinates cluster = new coordinates();
+        cluster.x = new Vector();
+        cluster.y = new Vector();
+        //****************
 
         xCoordinateInput = (EditText) findViewById(R.id.xCoordinateInput);
         yCoordinateInput = (EditText) findViewById(R.id.yCoordinateInput);
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    //****************************************************************************************
     //debug func&
     private void showToast(String text) {
         Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
