@@ -33,16 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //**************** SINGLE CLUSTER
-        //.coordinates clusterT = new coordObj.coordinates();
-        //clusterT.x = new Vector();
-        //clusterT.y = new Vector();
-
-        //clusterT.x.add(Double.parseDouble("5.0"));
-        //clusterT.y.add(Double.parseDouble("6.0"));
-
-        //****************
-
         xCoordinateInput = (EditText) findViewById(R.id.xCoordinateInput);
         yCoordinateInput = (EditText) findViewById(R.id.yCoordinateInput);
         outputNum = (TextView) findViewById(R.id.outputNum);
@@ -52,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                double outVal[] = new double[2];
+                int size;
                 coordObj.coordinates clusterT = new coordObj.coordinates();
                 clusterT.x = new Vector();
                 clusterT.y = new Vector();
@@ -67,15 +59,37 @@ public class MainActivity extends AppCompatActivity {
                     yCoordinateInput.setText("0");
 
                 }
+                //User input of x and y values
                 tempPointx = Double.parseDouble(xCoordinateInput.getText().toString());
                 tempPointy = Double.parseDouble(yCoordinateInput.getText().toString());
-                clusterT.x.add(tempPointx);
-                clusterT.y.add(tempPointy);
 
-                //OUTPUT:
-                outputPointx = String.valueOf(clusterT.x.get(0));
-                outputPointy = String.valueOf(clusterT.y.get(0));
-                outputNum.setText(String.format("(%s,%s)", outputPointx, outputPointy));
+                //clusterT.x.add(tempPointx);
+                //clusterT.y.add(tempPointy);
+
+                clusterT.x.add(0, 1.0);
+                clusterT.x.add(1, 250.0);
+                //clusterT.x.add(2, 10.0);
+                //clusterT.x.add(3, 20.0);
+                clusterT.y.add(0, 1.0);
+                clusterT.y.add(1, 250.0);
+                //clusterT.y.add(2, 10.0);
+                //clusterT.y.add(3, 20.0);
+                //clusterT.y.add(4, 25.0);
+
+                size = clusterT.x.size();
+                outVal = parserFile.parser.findClosest(clusterT, size, tempPointx, tempPointy);
+                outputNum.setText(String.format("(%s,%s)", outVal[0], outVal[1]));
+
+                //if(tempPointx == tempPointy)
+                //{
+                //    outputNum.setText(String.valueOf("5000"));
+                //}
+
+
+                //NOT DEAD*****
+                //outputPointx = String.valueOf(clusterT.x.get(0));
+                //outputPointy = String.valueOf(clusterT.y.get(0));
+                //outputNum.setText(String.format("(%s,%s)", outputPointx, outputPointy));
 
                 //outputNum.setText(String.valueOf(clusterT.x.get(0)));//dead
                 //outputNum.setText(String.valueOf(outputPoint));//dead

@@ -33,15 +33,16 @@ public class parser
     System.out.println("running time: " + totalT);
   }
   //****************************************************************************
-  public static double tester(double outout)
-  {
-    return outout;
-  }
+//  public static void tester(coordObj.coordinates c, int arSize)
+//  {
+//
+//  }
   /*
     Function to find the closest point to a given point
   */
-  public static void findClosest(coordObj.coordinates c, int arSize)
+  public static double[] findClosest(coordObj.coordinates c, int arSize, double xVal, double yVal)
   {
+    double ret[] = new double[2];
     double pointX, pointY;
     double closestX = 0.0;
     double closestY = 0.0;
@@ -54,8 +55,8 @@ public class parser
     // System.out.println("Enter your coordinate y"); //TEMP
     // pointY = inPut.nextDouble();
     //REMOVE
-    pointX = 509.284;
-    pointY = 980.01;
+    pointX = xVal;
+    pointY = yVal;
     //END
     /*
     For loop that linearly searches our array for the point
@@ -76,7 +77,10 @@ public class parser
       }
     }
     //Prints the next closest point
-    System.out.println("closest x,y: " + closestX + "," + closestY);
+    ret[0] = closestX;
+    ret[1] = closestY;
+    return ret;
+    //System.out.println("closest x,y: " + closestX + "," + closestY);
   }
   //****************************************************************************
   /*
@@ -131,6 +135,6 @@ public class parser
       System.out.println("error with file\n");
       e.printStackTrace();
     }
-    findClosest(cluster, arraySize);
+    //findClosest(cluster, arraySize);
   }
 } //end class
