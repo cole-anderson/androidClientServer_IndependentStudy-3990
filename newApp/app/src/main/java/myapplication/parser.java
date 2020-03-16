@@ -1,5 +1,5 @@
-package myapplication;
-
+//package myapplication;
+package parserFile;
 /*
   Backend:
   Java program that parses a file for (x,y) datapoints and stores them in a
@@ -33,10 +33,6 @@ public class parser
     System.out.println("running time: " + totalT);
   }
   //****************************************************************************
-//  public static void tester(coordObj.coordinates c, int arSize)
-//  {
-//
-//  }
   /*
     Function to find the closest point to a given point
   */
@@ -122,6 +118,8 @@ public class parser
             cluster.y.add(Double.parseDouble(a));
             System.out.println("y" + cluster.y.get(i));
           }
+
+          //TODO: ADD FUNCTIONALITY TO ADD MBR
           j++; //iterate between x and y
         }
         i++;
