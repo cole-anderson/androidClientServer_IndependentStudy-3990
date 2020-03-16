@@ -20,7 +20,7 @@ import static parserFile.parser.parseFile;
 public class MainActivity extends AppCompatActivity {
 
 
-    //FLOW
+    //TODO FLOW
     //PARSE CLUSTER
     //USER INPUT
     //COMPARE AGAINST MBR
@@ -93,27 +93,29 @@ public class MainActivity extends AppCompatActivity {
                 if(yCoordinateInput.getText().toString().length() == 0)
                 {
                     yCoordinateInput.setText("0");
-
                 }
-
                 /*
                     MBR COMPARISON
                 */
                 if(coordObj.coordinates.topRCorner[0] < tempPointx)
                 {
                     showToast("outside MBR RIGHT");
+                    outputNum.setText("OUTSIDE MBR");
                 }
                 else if(coordObj.coordinates.topRCorner[1] < tempPointy)
                 {
                     showToast("outside MBR TOP");
+                    outputNum.setText("OUTSIDE MBR");
                 }
                 else if(coordObj.coordinates.botLCorner[0] > tempPointx)
                 {
                     showToast("outside MBR LEFT");
+                    outputNum.setText("OUTSIDE MBR");
                 }
                 else if(coordObj.coordinates.botLCorner[1] > tempPointy)
                 {
                     showToast("outside MBR BOTTOM");
+                    outputNum.setText("OUTSIDE MBR");
                 }
                 //WHEN INSIDE MBR:
                 else {
