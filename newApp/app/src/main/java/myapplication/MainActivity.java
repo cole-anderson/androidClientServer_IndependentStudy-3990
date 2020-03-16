@@ -1,5 +1,5 @@
 package myapplication;
-
+//main
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +13,21 @@ import myapplication.R;
 import java.lang.*;
 import java.util.*;
 
+import static parserFile.parser.parseFile;
+
 //import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    double tempPointx;
-    double tempPointy;
+
+    //TODO FLOW
+    //PARSE CLUSTER
+    //USER INPUT
+    //COMPARE AGAINST MBR
+    //OUTPUT
+
+    double tempPointx = 0;
+    double tempPointy = 0;
     String outputPointx;
     String outputPointy;
 
@@ -48,62 +57,94 @@ public class MainActivity extends AppCompatActivity {
                 clusterT.x = new Vector();
                 clusterT.y = new Vector();
 
+                //TEMP
+                //clusterT.x.add(tempPointx);
+                //clusterT.y.add(tempPointy);
+
+                clusterT.x.add(0, 1.0);
+                clusterT.y.add(0, 1.0);
+
+                clusterT.x.add(1, 250.0);
+                clusterT.y.add(1, 250.0);
+
+                clusterT.x.add(2, 10.0);
+                clusterT.y.add(2, 10.0);
+
+                clusterT.x.add(3, 20.0);
+                clusterT.y.add(3, 20.0);
+
+                clusterT.topRCorner = new double [] {250.0, 250.0};
+                clusterT.botLCorner = new double [] {1.0, 1.0};
+
+                //------------------------------------------------------------------
+                /*
+                    //USER INPUT
+                /*
+                 */
+                //User input of x and y values
+                tempPointx = Double.parseDouble(xCoordinateInput.getText().toString());
+                tempPointy = Double.parseDouble(yCoordinateInput.getText().toString());
+
                 //If statements to avoid app crash if submit button is pressed without user input
                 if(xCoordinateInput.getText().toString().length() == 0)
                 {
-
                     xCoordinateInput.setText("0");
                 }
                 if(yCoordinateInput.getText().toString().length() == 0)
                 {
                     yCoordinateInput.setText("0");
+                }
+                /*
+                    MBR COMPARISON
+                */
+                if(coordObj.coordinates.topRCorner[0] < tempPointx)
+                {
+                    showToast("outside MBR RIGHT");
+                    outputNum.setText("OUTSIDE MBR");
+                }
+                else if(coordObj.coordinates.topRCorner[1] < tempPointy)
+                {
+                    showToast("outside MBR TOP");
+                    outputNum.setText("OUTSIDE MBR");
+                }
+                else if(coordObj.coordinates.botLCorner[0] > tempPointx)
+                {
+                    showToast("outside MBR LEFT");
+                    outputNum.setText("OUTSIDE MBR");
+                }
+                else if(coordObj.coordinates.botLCorner[1] > tempPointy)
+                {
+                    showToast("outside MBR BOTTOM");
+                    outputNum.setText("OUTSIDE MBR");
+                }
+                //WHEN INSIDE MBR:
+                else {
+
+                    //CURRENT OUTPUT
+                    size = clusterT.x.size();
+                    outVal = parserFile.parser.findClosest(clusterT, size, tempPointx, tempPointy);
+                    outputNum.setText(String.format("(%s,%s)", outVal[0], outVal[1]));
+
 
                 }
-                //User input of x and y values
-                tempPointx = Double.parseDouble(xCoordinateInput.getText().toString());
-                tempPointy = Double.parseDouble(yCoordinateInput.getText().toString());
+                    //TODO DELETE
+                    //if(tempPointx == tempPointy)
+                    //{
+                    //    outputNum.setText(String.valueOf("5000"));
+                    //}
+                    //NOT DEAD*****
+                    //outputPointx = String.valueOf(clusterT.x.get(0));
+                    //outputPointy = String.valueOf(clusterT.y.get(0));
+                    //outputNum.setText(String.format("(%s,%s)", outputPointx, outputPointy));
 
-                //clusterT.x.add(tempPointx);
-                //clusterT.y.add(tempPointy);
+                    //outputNum.setText(String.valueOf(clusterT.x.get(0)));//dead
+                    //outputNum.setText(String.valueOf(outputPoint));//dead
+                    //double testD = parserFile.parser.tester(600.00);//dead
 
-                clusterT.x.add(0, 1.0);
-                clusterT.x.add(1, 250.0);
-                //clusterT.x.add(2, 10.0);
-                //clusterT.x.add(3, 20.0);
-                clusterT.y.add(0, 1.0);
-                clusterT.y.add(1, 250.0);
-                //clusterT.y.add(2, 10.0);
-                //clusterT.y.add(3, 20.0);
-                //clusterT.y.add(4, 25.0);
-
-                size = clusterT.x.size();
-                outVal = parserFile.parser.findClosest(clusterT, size, tempPointx, tempPointy);
-                outputNum.setText(String.format("(%s,%s)", outVal[0], outVal[1]));
-
-                //if(tempPointx == tempPointy)
-                //{
-                //    outputNum.setText(String.valueOf("5000"));
+                    //debug call&
+                    //showToast(String.valueOf(testD));
                 //}
-
-
-                //NOT DEAD*****
-                //outputPointx = String.valueOf(clusterT.x.get(0));
-                //outputPointy = String.valueOf(clusterT.y.get(0));
-                //outputNum.setText(String.format("(%s,%s)", outputPointx, outputPointy));
-
-                //outputNum.setText(String.valueOf(clusterT.x.get(0)));//dead
-                //outputNum.setText(String.valueOf(outputPoint));//dead
-                //double testD = parserFile.parser.tester(600.00);//dead
-
-
-
-
-
-
-
-                //debug call&
-                //showToast(String.valueOf(testD));
-            }
+                }
         });
     }
     //****************************************************************************************
