@@ -1,4 +1,4 @@
-package coordObj;
+package myapplication;
 
 // coordinates is an object that contains 2 vectors
 //  x is the x coordinate of the points in the given cluster
