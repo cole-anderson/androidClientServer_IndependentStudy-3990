@@ -1,5 +1,5 @@
 //package myapplication;
-package parserFile;
+package parserJ;
 /*
   Backend:
   Java program that parses a file for (x,y) datapoints and stores them in a
@@ -96,7 +96,6 @@ public class parser
       int size = 25;
       int i = 0;
       int j = 0;
-      coordObj.coordinates one[] = new coordObj.coordinates[size];
       File myObj = new File(fname);
       Scanner myReader = new Scanner(myObj);
       myReader.useDelimiter(",");

@@ -56,25 +56,26 @@ public class MainActivity extends AppCompatActivity {
                 coordObj.coordinates clusterT = new coordObj.coordinates();
                 clusterT.x = new Vector();
                 clusterT.y = new Vector();
+                parserJ.parser.parseFile("test.txt");
 
-                //TEMP
-                //clusterT.x.add(tempPointx);
-                //clusterT.y.add(tempPointy);
-
-                clusterT.x.add(0, 1.0);
-                clusterT.y.add(0, 1.0);
-
-                clusterT.x.add(1, 250.0);
-                clusterT.y.add(1, 250.0);
-
-                clusterT.x.add(2, 10.0);
-                clusterT.y.add(2, 10.0);
-
-                clusterT.x.add(3, 20.0);
-                clusterT.y.add(3, 20.0);
-
-                clusterT.topRCorner = new double [] {250.0, 250.0};
-                clusterT.botLCorner = new double [] {1.0, 1.0};
+//                //TEMP
+//                //clusterT.x.add(tempPointx);
+//                //clusterT.y.add(tempPointy);
+//
+//                clusterT.x.add(0, 1.0);
+//                clusterT.y.add(0, 1.0);
+//
+//                clusterT.x.add(1, 250.0);
+//                clusterT.y.add(1, 250.0);
+//
+//                clusterT.x.add(2, 10.0);
+//                clusterT.y.add(2, 10.0);
+//
+//                clusterT.x.add(3, 20.0);
+//                clusterT.y.add(3, 20.0);
+//
+//                clusterT.topRCorner = new double [] {250.0, 250.0};
+//                clusterT.botLCorner = new double [] {1.0, 1.0};
 
                 //------------------------------------------------------------------
                 /*
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //CURRENT OUTPUT
                     size = clusterT.x.size();
-                    outVal = parserFile.parser.findClosest(clusterT, size, tempPointx, tempPointy);
+                    outVal = parserJ.parser.findClosest(clusterT, size, tempPointx, tempPointy);
                     outputNum.setText(String.format("(%s,%s)", outVal[0], outVal[1]));
 
 
