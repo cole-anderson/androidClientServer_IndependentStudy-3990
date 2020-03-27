@@ -26,8 +26,11 @@ public class parser
     //START PROGRAM
     long startT = System.currentTimeMillis();
 
-    String fileName = "newclusterTest.arff"; //FILENAME NOTE
-    parseArff(fileName);
+    //String fileName = "newclusterTest.arff"; //FILENAME NOTE
+    //parseArff(fileName); //UNCOMMENT LATER
+    String fileName2 = "test.txt";
+    //String fileName2 = "up_10000.fnl";
+    parseFnl(fileName2);
 
     //END PROGRAM
     long endT = System.currentTimeMillis();
@@ -97,6 +100,77 @@ public class parser
       index = index + 5;
     }
     return num;
+  }
+  //****************************************************************************
+  /*
+    //
+  */
+  public static void parseFnl(String fname)
+  {
+    try
+    {
+      String seperated[];
+      File myObj = new File(fname);
+      Scanner myReader = new Scanner(myObj);
+      int j = 0;
+      fnlData fnl = new fnlData();
+      fnl.lx = new Vector();
+      fnl.ly = new Vector();
+      fnl.hx = new Vector();
+      fnl.hy = new Vector();
+      fnl.id = new Vector();
+
+      while (myReader.hasNextLine())
+      {
+        String data = myReader.nextLine();
+        seperated = data.split(":");
+
+        for (String a : seperated)
+        {
+          switch (j)
+          {
+          case 0:
+            fnl.lx.add(Double.parseDouble(a));
+            System.out.println("lx: " + fnl.lx.get(0));
+            j++;
+            break;
+          case 1:
+            fnl.ly.add(Double.parseDouble(a));
+            System.out.println("ly: " + fnl.ly.get(0)); //DEBUG
+            j++;
+            break;
+          case 2:
+            fnl.hx.add(Double.parseDouble(a));
+            System.out.println("hx: " + fnl.hx.get(0)); //DEBUG
+            j++;
+            break;
+          case 3:
+            fnl.hy.add(Double.parseDouble(a));
+            System.out.println("hx: " + fnl.hy.get(0)); //DEBUG
+            j++;
+            break;
+          case 4:
+            //ignore the 0
+            j++;
+            break;
+          case 5:
+            fnl.id.add(Double.parseDouble(a));
+            System.out.println("id: " + fnl.id.get(0)); //DEBUG
+            j = 0;
+            break;
+          default:
+            System.out.println("error found parsing fnl");
+          }
+        }
+      }
+
+      myReader.close(); //close file
+    }
+    catch (FileNotFoundException e)
+    {
+      System.out.println("error with file\n");
+      e.printStackTrace();
+    }
   }
   //****************************************************************************
   /*
