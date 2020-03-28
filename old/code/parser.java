@@ -32,14 +32,16 @@ public class parser
     //START PROGRAM
     long startT = System.currentTimeMillis();
 
-    //Function Calls:
+    //Tests:
     String fileName = "newclusterTest.arff";
     clust = parseArff(fileName);
-    System.out.println("R-AFTER" + clust.size);               //PRINT DEBUG
-    System.out.println("array test: " + clust.c[0].x.get(1)); //PRINT DEBUG
+    //System.out.println("R-AFTER" + clust.size);               //PRINT DEBUG
+    //System.out.println("array test: " + clust.c[0].x.get(1)); //PRINT DEBUG
     String fileName2 = "up_10000.fnl";
     traj = parseFnl(fileName2);
-    System.out.println("fnl " + traj.f.lx.get(0)); //PRINT DEBUG
+    //System.out.println("fnl " + traj.f.lx.get(0)); //PRINT DEBUG
+    findClosest(clust.c[0], traj.f);
+    //^ clust.c[0] , traj where as traj is compared against the entire cluster to find the closest point //TODO********
 
     //END PROGRAM
     long endT = System.currentTimeMillis();
@@ -52,10 +54,13 @@ public class parser
     (COMPLETE)
   */
   //****************************************************************************
-  public static void findClosest(coordinates c, int arSize)
+  public static void findClosest(coordinates c, fnlData f)
   {
-    double pointX = 0.0;
-    double pointY = 0.0;
+    int arSize = c.x.size();
+    double pointX = f.lx.get(0);
+    double pointY = f.ly.get(0);
+    System.out.println("//Current Coordinate Location:"
+                       + "(" + pointX + "," + pointY + ")");
     double closestX = 0.0;
     double closestY = 0.0;
     double tempDistX = 10000.00;
@@ -78,7 +83,8 @@ public class parser
         }
       }
     }
-    System.out.println("//closest x,y: " + closestX + "," + closestY); //PRINT DEBUG
+    System.out.println("//Closest Coordinate In Cluster: "
+                       + "(" + closestX + "," + closestY + ")"); //PRINT DEBUG
   }
   //****************************************************************************
   /*
