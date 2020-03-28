@@ -7,6 +7,7 @@
   The program is also able to find the closest point to a given point
 */
 //Headers:
+//
 import java.io.*;
 import java.io.File;
 import java.io.FileNotFoundException;
