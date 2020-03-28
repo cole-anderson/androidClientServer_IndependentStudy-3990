@@ -1,5 +1,6 @@
-//package myapplication;
-package parserJ;
+
+package parserFile;
+//f1
 /*
   Backend:
   Java program that parses a file for (x,y) datapoints and stores them in a
@@ -79,53 +80,182 @@ public class parser
     //System.out.println("closest x,y: " + closestX + "," + closestY);
   }
   //****************************************************************************
+  public static int numCluster(String iN)
+  {
+    int start;
+    int end;
+    int index;
+    int num = 0;
+    char ch;
+    end = iN.lastIndexOf('}', iN.length());
+    //System.out.println("end:" + end);
+    start = iN.lastIndexOf('{', iN.length());
+    //System.out.println("start" + start);
+
+    index = start + 7;
+    while (index != (end - 1))
+    {
+      num++;
+      index = index + 5;
+    }
+    return num;
+  }
+  //****************************************************************************
   /*
     Function to parse arff file to determine the x,y coordinates
     and store them in a respective data structures per cluster
   */
   public static void parseFile(String fname)
   {
-    int num = 0;
-    int arraySize = 0;
-    coordObj.coordinates cluster = new coordObj.coordinates();
-    cluster.x = new Vector();
-    cluster.y = new Vector();
+    //coordObj.coordinates[]
     try
     {
+      int lineID = 0;
+      boolean exitCond = false;
       String seperated[];
-      int size = 25;
-      int i = 0;
-      int j = 0;
+      String last = "";
+      int j = -1;
+      int inc = 0;
+      int num = 0;
       File myObj = new File(fname);
       Scanner myReader = new Scanner(myObj);
-      myReader.useDelimiter(",");
-      //LOOP
+      while (myReader.hasNextLine() && exitCond == false)
+      {
+        String parseTop = myReader.nextLine();
+        if (parseTop.length() == 0)
+          inc++;
+        if (inc == 2)
+        {
+          num = numCluster(last);
+          //System.out.println("last" + last + "\n");
+          inc++;
+        }
+        if (inc == 3)
+        {
+          exitCond = true;
+        }
+        last = parseTop;
+      }
+      //System.out.println("out");
+
+      //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+      coordObj.coordinates cluster[] = new coordObj.coordinates[num];
+      for (int i = 0; i < num; i++)
+      {
+        cluster[i] = new coordObj.coordinates();
+        cluster[i].x = new Vector();
+        cluster[i].y = new Vector();
+        //System.out.println("i" + i);
+      }
+
+      // String seperated[];
+      // int j = 0;
+      // File myObj = new File(fname);
+      // Scanner myReader = new Scanner(myObj);
+      // myReader.useDelimiter(",");
+
+      String nll;
+      String xi = "0";
+      String yi = "0";
+      String ci = "0";
+      char t;
+      int ind;
+      int size = 0;
+      //int size0 = 0;
+      //int size1 = 0;
+
       while (myReader.hasNextLine())
       {
-
         String data = myReader.nextLine();
         seperated = data.split(",");
+
         for (String a : seperated)
         {
-          if (j % 2 == 0)
+          if (j == -1)
           {
-            cluster.x.add(Double.parseDouble(a));
-            System.out.println("x" + cluster.x.get(i));
+            j++;
+            continue;
           }
-          else
+          /*
+            Sequence of if statements that parse x, y and cluster
+            number and then place those values in the proper
+            object
+            nll = identifier that i want to ignore
+            xi = x coordinate
+            yi = y coordinate
+            ci = cluster number
+          */
+          else if (j == 0) //ignore identifer at start of each line
           {
-            cluster.y.add(Double.parseDouble(a));
-            System.out.println("y" + cluster.y.get(i));
+            nll = a;
+            //System.out.println("//nll:  " + nll);
+            j++;
+            continue;
           }
+          else if (j == 1) //parses x
+          {
+            xi = a;
+            //System.out.println("//x: " + xi);
+            j++;
+            continue;
+          }
+          else if (j == 2) //parses y
+          {
+            yi = a;
+            //System.out.println("//y: " + yi); //
+            j++;
+            continue;
+          }
+          else if (j == 3) //parses cluster num (and assigns x,y,clusternum)
+          {
+            ci = a;
+            //parsing out the cluster num
+            t = ci.charAt(7);
+            ind = Integer.parseInt(String.valueOf(t));
+            /*
+            ACTUALLY INPUTTING DATA INTO OBJECTS
+            */
 
-          //TODO: ADD FUNCTIONALITY TO ADD MBR
-          j++; //iterate between x and y
+            //System.out.println("ind" + ind);
+
+            ind = Integer.parseInt(String.valueOf(t));
+            cluster[ind].x.add(Double.parseDouble(xi));
+            cluster[ind].y.add(Double.parseDouble(yi));
+
+            //output jargain
+            // if (ind == 0)
+            // {
+            //   size0 = cluster[0].x.size();
+            //   System.out.println("//x INCLUSTER: " + cluster[ind].x.get(size0 - 1));
+            //   System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size0 - 1));
+            //   System.out.println("//cluster num:" + ind);
+            // }
+            // else if (ind == 1)
+            // {
+            //   size1 = cluster[1].x.size();
+            //   System.out.println("//x INCLUSTER: " + cluster[ind].x.get(size1 - 1));
+            //   System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size1 - 1));
+            //   System.out.println("//cluster num:" + ind);
+            // }
+
+            size = cluster[ind].x.size();
+            System.out.println("//x INCLUSTER: " + cluster[ind].x.get(size - 1));
+            System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size - 1));
+            System.out.println("//cluster num:" + ind);
+
+            lineID++;
+            System.out.println("///line id: " + lineID);
+            j = 0;
+            continue;
+          }
         }
-        i++;
-        //iteration through coordinates
-      }                 //end file reading while
+      }
       myReader.close(); //close file
-      arraySize = i;
+
+
+
+      //arraySize = i;
     }
     catch (FileNotFoundException e)
     {
@@ -133,5 +263,6 @@ public class parser
       e.printStackTrace();
     }
     //findClosest(cluster, arraySize);
+
   }
 } //end class

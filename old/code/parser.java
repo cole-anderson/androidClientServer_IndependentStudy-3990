@@ -22,42 +22,43 @@ public class parser
 {
   public static void main(String[] args)
   {
-    //NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
+    //Return Creations
+    returnClass clust = new returnClass();
+    returnClass traj = new returnClass();
+    /*
+    NOTE: Main is called only to test in terminal
+    */
     //START PROGRAM
     long startT = System.currentTimeMillis();
 
-    //String fileName = "newclusterTest.arff"; //FILENAME NOTE
-    //parseArff(fileName); //UNCOMMENT LATER
-    String fileName2 = "test.txt";
-    //String fileName2 = "up_10000.fnl";
-    parseFnl(fileName2);
+    //Function Calls:
+    String fileName = "newclusterTest.arff";
+    clust = parseArff(fileName);
+    System.out.println("R-AFTER" + clust.size);               //PRINT DEBUG
+    System.out.println("array test: " + clust.c[0].x.get(1)); //PRINT DEBUG
+    String fileName2 = "up_10000.fnl";
+    traj = parseFnl(fileName2);
+    System.out.println("fnl " + traj.f.lx.get(0)); //PRINT DEBUG
 
     //END PROGRAM
     long endT = System.currentTimeMillis();
     long totalT = endT - startT;
-    System.out.println("running time: " + totalT);
+    System.out.println("running time: " + totalT); //PRINT DEBUG
   }
   //****************************************************************************
   /*
-    Function to find the closest point to a given point (COMPLETE)
+    Function to find the closest point in cluster to current location
+    (COMPLETE)
   */
   //****************************************************************************
   public static void findClosest(coordinates c, int arSize)
   {
-    double pointX, pointY;
+    double pointX = 0.0;
+    double pointY = 0.0;
     double closestX = 0.0;
     double closestY = 0.0;
     double tempDistX = 10000.00;
     double tempDistY = 10000.00;
-    //User input NOTE: convert to GUI*
-    // Scanner inPut = new Scanner(System.in);
-    // System.out.println("Enter your coordinate x"); //TEMP
-    // pointX = inPut.nextDouble();
-    // System.out.println("Enter your coordinate y"); //TEMP
-    // pointY = inPut.nextDouble();
-    //REMOVE
-    pointX = 509.284;
-    pointY = 980.01;
     //END
     /*
     For loop that linearly searches our array for the point
@@ -67,7 +68,6 @@ public class parser
     {
       if (Math.abs(c.x.get(i) - pointX) <= tempDistX)
       {
-
         if (Math.abs((c.y.get(i)) - pointY) <= tempDistY)
         {
           closestX = c.x.get(i);
@@ -77,10 +77,14 @@ public class parser
         }
       }
     }
-    //Prints the next closest point
-    System.out.println("closest x,y: " + closestX + "," + closestY);
+    System.out.println("//closest x,y: " + closestX + "," + closestY); //PRINT DEBUG
   }
-  //
+  //****************************************************************************
+  /*
+    Function to determine the number of clusters contained in arff file
+    (COMPLETE)
+  */
+  //****************************************************************************
   public static int numCluster(String iN)
   {
     int start;
@@ -89,10 +93,9 @@ public class parser
     int num = 0;
     char ch;
     end = iN.lastIndexOf('}', iN.length());
-    //System.out.println("end:" + end);
+    //System.out.println("end:" + end);//PRINT DEBUG
     start = iN.lastIndexOf('{', iN.length());
-    //System.out.println("start" + start);
-
+    //System.out.println("start" + start);//PRINT DEBUG
     index = start + 7;
     while (index != (end - 1))
     {
@@ -103,10 +106,12 @@ public class parser
   }
   //****************************************************************************
   /*
-    //
+    Function to parse fnl file to determine the trajectory of user
   */
-  public static void parseFnl(String fname)
+  //****************************************************************************
+  public static returnClass parseFnl(String fname)
   {
+    returnClass r2 = new returnClass();
     try
     {
       String seperated[];
@@ -131,22 +136,22 @@ public class parser
           {
           case 0:
             fnl.lx.add(Double.parseDouble(a));
-            System.out.println("lx: " + fnl.lx.get(0));
+            //System.out.println("//lx: " + fnl.lx.get(0)); //PRINT DEBUG
             j++;
             break;
           case 1:
             fnl.ly.add(Double.parseDouble(a));
-            System.out.println("ly: " + fnl.ly.get(0)); //DEBUG
+            //System.out.println("//ly: " + fnl.ly.get(0)); //PRINT DEBUG
             j++;
             break;
           case 2:
             fnl.hx.add(Double.parseDouble(a));
-            System.out.println("hx: " + fnl.hx.get(0)); //DEBUG
+            //System.out.println("//hx: " + fnl.hx.get(0)); //PRINT DEBUG
             j++;
             break;
           case 3:
             fnl.hy.add(Double.parseDouble(a));
-            System.out.println("hx: " + fnl.hy.get(0)); //DEBUG
+            //System.out.println("//hx: " + fnl.hy.get(0)); //PRINT DEBUG
             j++;
             break;
           case 4:
@@ -155,15 +160,15 @@ public class parser
             break;
           case 5:
             fnl.id.add(Double.parseDouble(a));
-            System.out.println("id: " + fnl.id.get(0)); //DEBUG
+            //System.out.println("//id: " + fnl.id.get(0)); //PRINT DEBUG
             j = 0;
             break;
           default:
-            System.out.println("error found parsing fnl");
+            //System.out.println("error found parsing fnl");
           }
         }
       }
-
+      r2.f = fnl;
       myReader.close(); //close file
     }
     catch (FileNotFoundException e)
@@ -171,14 +176,17 @@ public class parser
       System.out.println("error with file\n");
       e.printStackTrace();
     }
+    return r2;
   }
   //****************************************************************************
   /*
     Function to parse arff file to determine the x,y coordinates
     and store them in a respective data structures per cluster
   */
-  public static void parseArff(String fname)
+  //****************************************************************************
+  public static returnClass parseArff(String fname)
   {
+    returnClass r1 = new returnClass();
     try
     {
       int lineID = 0;
@@ -198,7 +206,6 @@ public class parser
         if (inc == 2)
         {
           num = numCluster(last);
-          //System.out.println("last" + last + "\n");
           inc++;
         }
         if (inc == 3)
@@ -207,25 +214,14 @@ public class parser
         }
         last = parseTop;
       }
-      //System.out.println("out");
-
-      //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-      //
+      //Cluster Creation
       coordinates cluster[] = new coordinates[num];
       for (int i = 0; i < num; i++)
       {
         cluster[i] = new coordinates();
         cluster[i].x = new Vector();
         cluster[i].y = new Vector();
-        //System.out.println("i" + i);
       }
-
-      // String seperated[];
-      // int j = 0;
-      // File myObj = new File(fname);
-      // Scanner myReader = new Scanner(myObj);
-      // myReader.useDelimiter(",");
-
       String nll;
       String xi = "0";
       String yi = "0";
@@ -235,61 +231,40 @@ public class parser
       int size = 0;
       int size0 = 0;
       int size1 = 0;
-
       while (myReader.hasNextLine())
       {
         String data = myReader.nextLine();
         seperated = data.split(",");
-
         for (String a : seperated)
         {
-          if (j == -1)
+          switch (j)
           {
+          case -1:
             j++;
-            continue;
-          }
-          /*
-            Sequence of if statements that parse x, y and cluster
-            number and then place those values in the proper
-            object
-            nll = identifier that i want to ignore
-            xi = x coordinate
-            yi = y coordinate
-            ci = cluster number
-          */
-          else if (j == 0) //ignore identifer at start of each line
-          {
+            break;
+          case 0:
             nll = a;
-            //System.out.println("//nll:  " + nll);
+            //System.out.println("//nll:  " + nll); //PRINT DEBUG
             j++;
-            continue;
-          }
-          else if (j == 1) //parses x
-          {
+            break;
+          case 1:
             xi = a;
-            //System.out.println("//x: " + xi);
+            //System.out.println("//x: " + xi); //PRINT DEBUG
             j++;
-            continue;
-          }
-          else if (j == 2) //parses y
-          {
+            break;
+          case 2:
             yi = a;
-            //System.out.println("//y: " + yi); //
+            //System.out.println("//y: " + yi); //PRINT DEBUG
             j++;
-            continue;
-          }
-          else if (j == 3) //parses cluster num (and assigns x,y,clusternum)
-          {
+            break;
+          case 3:
             ci = a;
             //parsing out the cluster num
             t = ci.charAt(7);
             ind = Integer.parseInt(String.valueOf(t));
             /*
-            ACTUALLY INPUTTING DATA INTO OBJECTS
-            */
-
-            //System.out.println("ind" + ind);
-
+           ACTUALLY INPUTTING DATA INTO OBJECTS
+           */
             ind = Integer.parseInt(String.valueOf(t));
             cluster[ind].x.add(Double.parseDouble(xi));
             cluster[ind].y.add(Double.parseDouble(yi));
@@ -309,25 +284,23 @@ public class parser
             //   System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size1 - 1));
             //   System.out.println("//cluster num:" + ind);
             // }
-
-            size = cluster[ind].x.size();
-            System.out.println("//x INCLUSTER: " + cluster[ind].x.get(size - 1));
-            System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size - 1));
-            System.out.println("//cluster num:" + ind);
-
-            lineID++;
-            System.out.println("///line id: " + lineID);
             j = 0;
-            continue;
+            break;
+          default:
+            System.out.println("error found parsing arff");
           }
         }
       }
       myReader.close(); //close file
+
+      r1.size = size;
+      r1.c = cluster;
     }
     catch (FileNotFoundException e)
     {
       System.out.println("error with file\n");
       e.printStackTrace();
     }
+    return r1;
   }
 } //end class

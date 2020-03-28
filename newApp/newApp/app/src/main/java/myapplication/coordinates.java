@@ -1,3 +1,4 @@
+//package myapplication;
 package coordObj;
 //f2
 // coordinates is an object that contains 2 vectors
