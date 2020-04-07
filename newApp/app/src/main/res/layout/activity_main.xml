@@ -83,6 +83,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="280dp"
-        android:text="Submit" />
+        android:text="Next Point" />
 
 </RelativeLayout>

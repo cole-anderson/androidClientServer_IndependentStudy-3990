@@ -53,28 +53,28 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 double outVal[] = new double[2];
                 int size;
-                //coordObj.coordinates clusterT = new coordObj.coordinates();
-//                clusterT.x = new Vector();
-//                clusterT.y = new Vector();
-//
-//                //TEMP
-//                //clusterT.x.add(tempPointx);
-//                //clusterT.y.add(tempPointy);
-//
-//                clusterT.x.add(0, 1.0);
-//                clusterT.y.add(0, 1.0);
-//
-//                clusterT.x.add(1, 250.0);
-//                clusterT.y.add(1, 250.0);
-//
-//                clusterT.x.add(2, 10.0);
-//                clusterT.y.add(2, 10.0);
-//
-//                clusterT.x.add(3, 20.0);
-//                clusterT.y.add(3, 20.0);
-//
-//                clusterT.topRCorner = new double [] {250.0, 250.0};
-//                clusterT.botLCorner = new double [] {1.0, 1.0};
+                coordObj.coordinates clusterT = new coordObj.coordinates();
+                clusterT.x = new Vector();
+                clusterT.y = new Vector();
+
+                //TEMP
+                //clusterT.x.add(tempPointx);
+                //clusterT.y.add(tempPointy);
+
+                clusterT.x.add(0, 1.0);
+                clusterT.y.add(0, 1.0);
+
+                clusterT.x.add(1, 250.0);
+                clusterT.y.add(1, 250.0);
+
+                clusterT.x.add(2, 10.0);
+                clusterT.y.add(2, 10.0);
+
+                clusterT.x.add(3, 20.0);
+                clusterT.y.add(3, 20.0);
+
+                clusterT.topRCorner = new double [] {250.0, 250.0};
+                clusterT.botLCorner = new double [] {1.0, 1.0};
 
                 //------------------------------------------------------------------
                 /*

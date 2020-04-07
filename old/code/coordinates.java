@@ -16,10 +16,18 @@ public class coordinates
 {
   Vector<Double> x;
   Vector<Double> y;
-  coordinates(Vector<Double> x, Vector<Double> y)
+  double topRCornerX;
+  double botLCornerX;
+  double topRCornerY;
+  double botLCornerY;
+  coordinates(Vector<Double> x, Vector<Double> y, double topRCornerX, double botLCornerX, double topRCornerY, double botLCornerY)
   {
     this.x = x;
     this.y = y;
+    this.topRCornerX = topRCornerX;
+    this.botLCornerX = botLCornerX;
+    this.topRCornerY = topRCornerY;
+    this.botLCornerY = botLCornerY;
   }
   coordinates()
   {

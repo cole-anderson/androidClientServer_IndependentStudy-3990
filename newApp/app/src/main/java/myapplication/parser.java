@@ -1,4 +1,3 @@
-
 package parserFile;
 //f1
 /*
@@ -253,8 +252,6 @@ public class parser
       }
       myReader.close(); //close file
 
-
-
       //arraySize = i;
     }
     catch (FileNotFoundException e)
@@ -263,6 +260,5 @@ public class parser
       e.printStackTrace();
     }
     //findClosest(cluster, arraySize);
-
   }
 } //end class

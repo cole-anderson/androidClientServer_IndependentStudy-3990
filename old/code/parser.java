@@ -17,6 +17,7 @@ import java.lang.String;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unchecked")
 
 public class parser
@@ -33,15 +34,44 @@ public class parser
     long startT = System.currentTimeMillis();
 
     //Tests:
-    String fileName = "newclusterTest.arff";
+    //String fileName = "newclusterTest.arff";
+    String fileName = "test.txt";
     clust = parseArff(fileName);
     //System.out.println("R-AFTER" + clust.size);               //PRINT DEBUG
     //System.out.println("array test: " + clust.c[0].x.get(1)); //PRINT DEBUG
-    String fileName2 = "up_10000.fnl";
+    //String fileName2 = "trajectory.fnl";
+    String fileName2 = "testJ.txt";
     traj = parseFnl(fileName2);
     //System.out.println("fnl " + traj.f.lx.get(0)); //PRINT DEBUG
-    findClosest(clust.c[0], traj.f);
-    //^ clust.c[0] , traj where as traj is compared against the entire cluster to find the closest point //TODO********
+
+    int s = (int)traj.f.id.size();
+    System.out.println("fnl id " + s); //PRINT DEBUG
+
+    //TODO:
+    /*
+      1)
+    */
+    // boolean pause = true;
+    // for (int i = 0; i < s; i++)
+    // {
+    //   if (pause == true)
+    //   {
+    //     try
+    //     {
+    //       Thread.sleep(2000);
+    //       pause = false;
+    //     }
+    //     catch (InterruptedException e)
+    //     {
+    //       e.printStackTrace();
+    //     }
+    //   }
+    //   else
+    //   {
+    //     findClosest(clust.c[0], traj.f, i);
+    //     pause = true;
+    //   }
+    // }
 
     //END PROGRAM
     long endT = System.currentTimeMillis();
@@ -54,11 +84,11 @@ public class parser
     (COMPLETE)
   */
   //****************************************************************************
-  public static void findClosest(coordinates c, fnlData f)
+  public static void findClosest(coordinates c, fnlData f, int incr)
   {
     int arSize = c.x.size();
-    double pointX = f.lx.get(0);
-    double pointY = f.ly.get(0);
+    double pointX = f.lx.get(incr);
+    double pointY = f.ly.get(incr);
     System.out.println("//Current Coordinate Location:"
                        + "(" + pointX + "," + pointY + ")");
     double closestX = 0.0;
@@ -229,6 +259,8 @@ public class parser
         cluster[i].x = new Vector();
         cluster[i].y = new Vector();
       }
+
+      int loop = 0;
       String nll;
       String xi = "0";
       String yi = "0";
@@ -238,6 +270,8 @@ public class parser
       int size = 0;
       int size0 = 0;
       int size1 = 0;
+      //
+      //
       while (myReader.hasNextLine())
       {
         String data = myReader.nextLine();
@@ -275,7 +309,7 @@ public class parser
             ind = Integer.parseInt(String.valueOf(t));
             cluster[ind].x.add(Double.parseDouble(xi));
             cluster[ind].y.add(Double.parseDouble(yi));
-
+            //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             //output jargain
             // if (ind == 0)
             // {
@@ -299,7 +333,24 @@ public class parser
         }
       }
       myReader.close(); //close file
-
+      /*
+        Set Values of Cluster MBRs
+      */
+      //Top Right Corner x,y and Bottom Left Corner x,y
+      for (int i = 0; i < num; i++)
+      {
+        cluster[i].topRCornerX = Collections.max(cluster[i].x);                                                 //RIGHT BOUND
+        cluster[i].topRCornerY = Collections.max(cluster[i].y);                                                 //LUPPER BOUND
+        System.out.println("//topRCorner: " + i + ":" + cluster[i].topRCornerX + "," + cluster[i].topRCornerY); //PRINT DEBUG
+        cluster[i].botLCornerX = Collections.min(cluster[i].x);                                                 //LEFT BOUND
+        cluster[i].botLCornerY = Collections.min(cluster[i].y);                                                 //LOWER BOUND
+        System.out.println("//botLCorner: " + i + ":" + cluster[i].botLCornerX + "," + cluster[i].botLCornerY); //PRINT DEBUG
+      }
+      /*
+        Set Values of SuperMBR
+      */
+      //TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      //set return values
       r1.size = size;
       r1.c = cluster;
     }
@@ -308,6 +359,6 @@ public class parser
       System.out.println("error with file\n");
       e.printStackTrace();
     }
-    return r1;
+    return r1; //return obj
   }
 } //end class
