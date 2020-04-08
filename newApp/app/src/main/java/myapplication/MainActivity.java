@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
   EditText xCoordinateInput;
   EditText yCoordinateInput;
   TextView outputNum;
+  TextView textView2;
 
   Button submitButton;
 
@@ -53,9 +54,10 @@ public class MainActivity extends AppCompatActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    xCoordinateInput = (EditText)findViewById(R.id.xCoordinateInput);
-    yCoordinateInput = (EditText)findViewById(R.id.yCoordinateInput);
+    //xCoordinateInput = (EditText)findViewById(R.id.xCoordinateInput);
+    //yCoordinateInput = (EditText)findViewById(R.id.yCoordinateInput);
     outputNum = (TextView)findViewById(R.id.outputNum);
+    textView2 = (TextView)findViewById(R.id.textView2);
 
     /*
        READ FILES IN
@@ -66,17 +68,18 @@ public class MainActivity extends AppCompatActivity
     final returnClass traj;
 
 
-    //String fileName = "newclusterTest.arff";
+    //String fileName = "clusterfnl.arff";
     String fileName = "test.txt";
     double xv = 0.0;
     clust = parseArff(fileName); //TODO FIX
-      System.out.println("array 0 start (EXP 5)" + clust.c[0].x.get(0)); //DELETE
-      System.out.println("array 1 start (EXP 15)" + clust.c[1].x.get(0)); //DELETE
+      //System.out.println("array 0 start (EXP 5)" + clust.c[0].x.get(0)); //DELETE
+      //System.out.println("array 1 start (EXP 15)" + clust.c[1].x.get(0)); //DELETE
 
     //String fileName2 = "trajectory.fnl";
     String fileName2 = "testJ.txt";
     traj = parseFnl(fileName2); //TODO FIX**
       System.out.println("fnl" + traj.f.hx);
+
 
 
 
@@ -97,13 +100,20 @@ public class MainActivity extends AppCompatActivity
     */
     submitButton = (Button)findViewById(R.id.submitButton);
     submitButton.setOnClickListener(new View.OnClickListener() {
+        int loc = 0;
+        int j = 0;
       @Override
       public void onClick(View v)
       {
+          if(loc < traj.f.hx.size()-1)
+              loc++;
+          else
+              loc = 0;
         double outVal[] = new double[clust.size];
         double outputAr[] = new double[2];
         //System.out.println("length" + outVal.length);
         int sizecc = 0;
+        int j = 0;
 
         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         //TODO: //TEMP VALUES FOR TESTING PURPOSES:
@@ -140,21 +150,25 @@ public class MainActivity extends AppCompatActivity
          TODO: IMPLEMENT ARROWS INSTEAD OF ENTRIES** fnl data instead of temp points
         */
         //User input of x and y values
-        tempPointx = Double.parseDouble(xCoordinateInput.getText().toString());
-        tempPointy = Double.parseDouble(yCoordinateInput.getText().toString());
+//        tempPointx = Double.parseDouble(xCoordinateInput.getText().toString());
+//        tempPointy = Double.parseDouble(yCoordinateInput.getText().toString());
 
         //If statements to avoid app crash if submit button is pressed without user input
-        if (xCoordinateInput.getText().toString().length() == 0)
-        {
-          xCoordinateInput.setText("0");
-        }
-        if (yCoordinateInput.getText().toString().length() == 0)
-        {
-          yCoordinateInput.setText("0");
-        }
+//        if (xCoordinateInput.getText().toString().length() == 0)
+//        {
+//          xCoordinateInput.setText("0");
+//        }
+//        if (yCoordinateInput.getText().toString().length() == 0)
+//        {
+//          yCoordinateInput.setText("0");
+//        }
         /*
             MBR COMPARISON TODO**
         */
+            tempPointx = traj.f.lx.get(loc);
+            tempPointy = traj.f.ly.get(loc);
+            System.out.println("//loc: " + loc + tempPointx + tempPointy);
+
           coordinates closeC = new coordinates();
           closeC.x = new Vector();
           closeC.y = new Vector();
@@ -172,35 +186,38 @@ public class MainActivity extends AppCompatActivity
         }
 
         outputAr = findClosest(closeC, closeC.x.size(), tempPointx, tempPointy);
+
+//        if(tempPointx < clust.c[j].topRCornerX.get(j) && tempPointy < clust.c[j].topRCornerY.get(j) && tempPointx > clust.c[j].botLCornerX.get(j) && tempPointy > clust.c[j].botLCornerY.get(j))
+//        {
+//            showToast("INSIDE Cluster " + j + "MBR");
+//        }
+
+          if(tempPointx > clust.c[j].topRCornerX.get(j) || tempPointy > clust.c[j].topRCornerY.get(j))
+          {
+              j++;
+          }
+          showToast("INSIDE Cluster " + j + "MBR");
+
+          System.out.println("//variety: j" + j);
+          textView2.setText(String.format("(%s,%s)", tempPointx, tempPointy));
         outputNum.setText(String.format("(%s,%s)", outputAr[0], outputAr[1]));
-
-        if(tempPointx < clust.c[0].topRCornerX && tempPointx > clust.c[0].botLCornerX &&
-                tempPointy < clust.c[0].topRCornerY && tempPointy > clust.c[0].botLCornerY)
-        {
-            showToast("INSIDE MBR"); //Print Debug
-        }
-        else
-        {
-            showToast("OUTSIDE MBR"); //Print Debug
-        }
-
 
         //old
 //          if (clust.c[0].topRCornerX < tempPointx)
 //          {
-//              //showToast("outside MBR RIGHT"); //Print Debug
-//              outputNum.setText("OUTSIDE MBR");
+//              showToast("outside MBR RIGHT"); //Print Debug
+//              //outputNum.setText("OUTSIDE MBR");
 //          } else if (clust.c[0].topRCornerY < tempPointy)
 //          {
-//              //showToast("outside MBR TOP"); //Print Debug
-//              outputNum.setText("OUTSIDE MBR");
+//              showToast("outside MBR TOP"); //Print Debug
+//              //outputNum.setText("OUTSIDE MBR");
 //          } else if (clust.c[0].botLCornerX > tempPointx)
 //          {
-//              //showToast("outside MBR LEFT"); //Print Debug
-//              outputNum.setText("OUTSIDE MBR");
+//              showToast("outside MBR LEFT"); //Print Debug
+//              //outputNum.setText("OUTSIDE MBR");
 //          } else if (clust.c[0].botLCornerY > tempPointy)
 //          {
-//              //showToast("outside MBR BOTTOM"); //Print Debug
+//              showToast("outside MBR BOTTOM"); //Print Debug
 //              outputNum.setText("OUTSIDE MBR");
 //          }
 //          //WHEN INSIDE MBR:
@@ -270,6 +287,11 @@ public class MainActivity extends AppCompatActivity
                cluster[i] = new coordinates();
                cluster[i].x = new Vector();
                cluster[i].y = new Vector();
+
+               cluster[i].topRCornerX = new Vector();
+               cluster[i].topRCornerY = new Vector();
+               cluster[i].botLCornerX = new Vector();
+               cluster[i].botLCornerY = new Vector();
            }
            r1.size = num;
 
@@ -350,21 +372,24 @@ public class MainActivity extends AppCompatActivity
            //Top Right Corner x,y and Bottom Left Corner x,y
            for (int i = 0; i < num; i++)
            {   //RIGHT,UPPER,LEFT,LOWER
-               cluster[i].topRCornerX = Collections.max(cluster[i].x);
-               cluster[i].topRCornerY = Collections.max(cluster[i].y);
+               double temp;
+               temp = Collections.max(cluster[i].x);
+               System.out.println("temp" + temp);
+               cluster[i].topRCornerX.add(temp);
+               temp = Collections.max(cluster[i].y);
+               cluster[i].topRCornerY.add(temp);
                //System.out.println("//topRCorner: " + i + ":" + cluster[i].topRCornerX + "," + cluster[i].topRCornerY); //Print Debug
-               cluster[i].botLCornerX = Collections.min(cluster[i].x);
-               cluster[i].botLCornerY = Collections.min(cluster[i].y);
+               temp = Collections.min(cluster[i].x);
+               cluster[i].botLCornerX.add(temp);
+               temp = Collections.min(cluster[i].y);
+               cluster[i].botLCornerY.add(temp);
                //System.out.println("//botLCorner: " + i + ":" + cluster[i].botLCornerX + "," + cluster[i].botLCornerY); //PrintDebug
            }
+           //System.out.println("//cluster1" + cluster[1].topRCornerX + "/" + cluster[1].topRCornerY);
             /*
             Set Values of SuperMBR
             */
            //TODO: CREATE SUPERMBRS**
-           //...........................
-           //...........................
-           //...........................
-           //...........................
            //...........................
 
            //Copy to Return Object
@@ -522,7 +547,7 @@ public class MainActivity extends AppCompatActivity
             if (Math.abs(c.x.get(i) - pointX) <= tempDistX)
             {
 
-                if (Math.abs((c.y.get(i)) - pointY) <= tempDistY)
+                if (Math.abs(c.y.get(i) - pointY) <= tempDistY)
                 {
                     closestX = c.x.get(i);
                     closestY = c.y.get(i);

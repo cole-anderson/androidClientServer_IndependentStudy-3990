@@ -17,13 +17,13 @@ import java.util.Scanner;
 public class coordinates {
   public Vector<Double> x;
   public Vector<Double> y;
-  public double topRCornerX;
-  public double botLCornerX;
-  public double topRCornerY;
-  public double botLCornerY;
+  public Vector<Double> topRCornerX;
+  public Vector<Double> botLCornerX;
+  public Vector<Double> topRCornerY;
+  public Vector<Double> botLCornerY;
   public Vector<Integer> clusterID;
 
-  public coordinates(Vector<Double> x, Vector<Double> y, double topRCornerX, double botLCornerX, double topRCornerY, double botLCornerY, Vector<Integer> clusterID) {
+  public coordinates(Vector<Double> x, Vector<Double> y, Vector<Double> topRCornerX, Vector<Double> botLCornerX, Vector<Double> topRCornerY, Vector<Double> botLCornerY, Vector<Integer> clusterID) {
     this.x = x;
     this.y = y;
     this.topRCornerX = topRCornerX;
