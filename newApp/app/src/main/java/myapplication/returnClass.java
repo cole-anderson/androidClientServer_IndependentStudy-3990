@@ -1,4 +1,5 @@
-package retClass;
+package myapplication;
+//package retClass;
 //Headers:
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,14 +16,13 @@ public class returnClass
   */
 
   // Return data from parseArff
-  public static coordObj.coordinates c[]; //return array of [size] clusters
-  public static int size;        //return size of array
+  public coordinates c[]; //return array of [size] clusters
+  public int size;        //return size of array
 
   // Return data from parseFnl
-  public static fnlD.fnlData f;
-  //
-  //
-  public returnClass(int size, coordObj.coordinates c[], fnlD.fnlData f)
+  public static fnlData f;
+
+  public returnClass(int size, coordinates c[], fnlData f)
   {
     this.size = size;
     this.c = c;

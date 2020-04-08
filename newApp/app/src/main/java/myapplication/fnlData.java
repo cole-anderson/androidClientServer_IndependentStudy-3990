@@ -1,14 +1,12 @@
-package fnlD;
+package myapplication;
+//package fnlD;
 /*
 
 */
 //Headers:
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.lang.*;
 import java.util.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+
 @SuppressWarnings("unchecked")
 
 public class fnlData

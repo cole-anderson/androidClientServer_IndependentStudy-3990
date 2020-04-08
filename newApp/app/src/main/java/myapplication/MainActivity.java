@@ -1,9 +1,6 @@
+
+//Headers:
 package myapplication;
-//main
-import static java.io.FileDescriptor.in;
-import static parserFile.parser.*;
-//import static parserFile.parser.parseArff;
-import static parserFile.parser.parseFnl;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import coordObj.coordinates;
-//import java.util.Vector;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,10 +17,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.*;
 import java.util.*;
-import myapplication.R;
-
 //import android.support.v7.app.AppCompatActivity;
 
+/*
+    Main Class
+    -
+    -
+    -
+    -
+    -
+*/
 public class MainActivity extends AppCompatActivity
 {
 
@@ -57,95 +58,87 @@ public class MainActivity extends AppCompatActivity
     outputNum = (TextView)findViewById(R.id.outputNum);
 
     /*
-            READ FILES IN
-        */
+       READ FILES IN
+    */
 
     //Return Creations
-    retClass.returnClass clust = new retClass.returnClass();
-    retClass.returnClass traj = new retClass.returnClass();
+    final returnClass clust;
+    final returnClass traj;
 
-    testpackage test = new testpackage();
-    test.t = 69;
-    System.out.println(test.t);
-
-    coordObj.coordinates clusterV[] = new coordObj.coordinates[2];
 
     //String fileName = "newclusterTest.arff";
-    //String fileName = "test.txt";
-    double va;
+    String fileName = "test.txt";
     double xv = 0.0;
-    //va = parserFile.parser.parseArff("test.txt",xv);
-      clust = testP("test.txt");
-      System.out.println("xv pass" + xv);
-
-    int test1 = coordObj.coordinates.globe; //qualifier
-    //parserFile.parser.parseArff(fileName);
-    xv = clust.c[0].x.get(0); //broken because parser
-
-    outputNum.setText(String.format("(%s,%s)", "return cluster val", xv));
-
-    //works
-    //clusterV.x.add(15.0);
-
-
-    //Log.i("DEBUG-DEBUG", "THIS IS A TEST OF THIS");
+    clust = parseArff(fileName); //TODO FIX
+      System.out.println("array 0 start (EXP 5)" + clust.c[0].x.get(0)); //DELETE
+      System.out.println("array 1 start (EXP 15)" + clust.c[1].x.get(0)); //DELETE
 
     //String fileName2 = "trajectory.fnl";
     String fileName2 = "testJ.txt";
-    //traj = parseFnl(fileName2); TODO FIX
+    traj = parseFnl(fileName2); //TODO FIX**
+      System.out.println("fnl" + traj.f.hx);
 
-    //testbed
-    int sizeN = 3; //clust.size;
 
-    //        final coordObj.coordinates clusterT[] = new coordObj.coordinates[sizeN];
-    //        for(int s = 0; s < sizeN; s++)
-    //        {
-    //            clusterT[s] = clust.c[s];
-    //        }
-    //outputNum.setText(String.format("(%s,%s)", sizeN, clust.c[0].x.get(0)));
 
-    //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//      //delete
+//      coordinates clusterV[] = new coordinates[2];
+//      for(int i = 0; i < clusterV.length; i++)
+//      {
+//        clusterV[i] = new coordinates();
+//        clusterV[i].x = new Vector();
+//        clusterV[i].y = new Vector();
+//      }
+//      clusterV[0].x.add(1515.0);
+//      clusterV[1].x.add(9210.0);
+//      System.out.println("0,1: " + clusterV[0].x.get(0) + "," + clusterV[1].x.get(0));
 
-    //SubmitButton
+    /*
+    Submit Button
+    */
     submitButton = (Button)findViewById(R.id.submitButton);
     submitButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v)
       {
-
-        double outVal[] = new double[2];
+        double outVal[] = new double[clust.size];
+        double outputAr[] = new double[2];
+        //System.out.println("length" + outVal.length);
         int sizecc = 0;
-        //TODO DELETE
-                        coordObj.coordinates clusterT = new coordObj.coordinates();
-                        clusterT.x = new Vector();
-                        clusterT.y = new Vector();
 
-                        //TEMP
-                        //clusterT.x.add(tempPointx);
-                        //clusterT.y.add(tempPointy);
+        //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        //TODO: //TEMP VALUES FOR TESTING PURPOSES:
 
-                        clusterT.x.add(0, 1.0);
-                        clusterT.y.add(0, 1.0);
+//          coordinates clusterT = new coordinates();
+//          clusterT.x = new Vector();
+//          clusterT.y = new Vector();
+//
+//          clusterT.x.add(0, 1.0);
+//          clusterT.y.add(0, 1.0);
+//
+//          clusterT.x.add(1, 250.0);
+//          clusterT.y.add(1, 250.0);
+//
+//          clusterT.x.add(2, 10.0);
+//          clusterT.y.add(2, 10.0);
+//
+//          clusterT.x.add(3, 20.0);
+//          clusterT.y.add(3, 20.0);
+//
+//          clusterT.topRCornerX = 250;
+//          clusterT.topRCornerY = 250;
+//          clusterT.botLCornerX = 1.0;
+//          clusterT.botLCornerY = 1.0;
+//
+//          System.out.println("//main test" + clusterT.x.get(0));//DELETE
+//          System.out.println("//main test" + clusterT.x.get(1));//DELETE
+//          System.out.println("//main test" + clusterT.x.get(2));//DELETE
+//          System.out.println("//main test" + clusterT.x.get(3));//DELETE
+          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-                        clusterT.x.add(1, 250.0);
-                        clusterT.y.add(1, 250.0);
-
-                        clusterT.x.add(2, 10.0);
-                        clusterT.y.add(2, 10.0);
-
-                        clusterT.x.add(3, 20.0);
-                        clusterT.y.add(3, 20.0);
-
-                        clusterT.topRCornerX = 250;
-                        clusterT.topRCornerY = 250;
-                        clusterT.botLCornerX = 1.0;
-                        clusterT.botLCornerY = 1.0;
-
-        //------------------------------------------------------------------
         /*
-                    //USER INPUT
-                /*
-                 */
+         USER INPUT
+         TODO: IMPLEMENT ARROWS INSTEAD OF ENTRIES** fnl data instead of temp points
+        */
         //User input of x and y values
         tempPointx = Double.parseDouble(xCoordinateInput.getText().toString());
         tempPointy = Double.parseDouble(yCoordinateInput.getText().toString());
@@ -159,78 +152,93 @@ public class MainActivity extends AppCompatActivity
         {
           yCoordinateInput.setText("0");
         }
-
-
         /*
-                    MBR COMPARISON
-                */
-                        if(clusterT.topRCornerX < tempPointx)
-                        {
-                            showToast("outside MBR RIGHT");
-                            outputNum.setText("OUTSIDE MBR");
-                        }
-                        else if(clusterT.topRCornerY < tempPointy)
-                        {
-                            showToast("outside MBR TOP");
-                            outputNum.setText("OUTSIDE MBR");
-                        }
-                        else if(clusterT.botLCornerX > tempPointx)
-                        {
-                            showToast("outside MBR LEFT");
-                            outputNum.setText("OUTSIDE MBR");
-                        }
-                        else if(clusterT.botLCornerY > tempPointy)
-                        {
-                            showToast("outside MBR BOTTOM");
-                            outputNum.setText("OUTSIDE MBR");
-                        }
-                        //WHEN INSIDE MBR:
-                        else
-                          {
+            MBR COMPARISON TODO**
+        */
+          coordinates closeC = new coordinates();
+          closeC.x = new Vector();
+          closeC.y = new Vector();
+          closeC.x.clear();
+          closeC.y.clear();
 
-                            //CURRENT OUTPUT
-                            sizecc = clusterT.x.size();
-                            outVal = parserFile.parser.findClosest(clusterT, sizecc, tempPointx, tempPointy);
-                            //outputNum.setText(String.format("(%s,%s)", outVal[0], outVal[1]));
+        for(int i = 0; i < clust.size; i++)
+        {
+            sizecc = clust.c[0].x.size();
+            outVal = findClosest(clust.c[i], sizecc, tempPointx, tempPointy); //todo change temp
+            closeC.x.add(outVal[0]);
+            closeC.y.add(outVal[1]);
+            System.out.println("Closest" + "[" + i + "]" + closeC.x.get(i) + "," + closeC.y.get(i));
+            System.out.println("//sizeof" + closeC.x.size() + "&" + closeC.y.size());
+        }
+
+        outputAr = findClosest(closeC, closeC.x.size(), tempPointx, tempPointy);
+        outputNum.setText(String.format("(%s,%s)", outputAr[0], outputAr[1]));
+
+        if(tempPointx < clust.c[0].topRCornerX && tempPointx > clust.c[0].botLCornerX &&
+                tempPointy < clust.c[0].topRCornerY && tempPointy > clust.c[0].botLCornerY)
+        {
+            showToast("INSIDE MBR"); //Print Debug
+        }
+        else
+        {
+            showToast("OUTSIDE MBR"); //Print Debug
+        }
 
 
-                          }
-        //TODO DELETE
-        //if(tempPointx == tempPointy)
-        //{
-        //    outputNum.setText(String.valueOf("5000"));
-        //}
-        //NOT DEAD*****
-        //outputPointx = String.valueOf(clusterT.x.get(0));
-        //outputPointy = String.valueOf(clusterT.y.get(0));
-        //outputNum.setText(String.format("(%s,%s)", outputPointx, outputPointy));
-
-        //outputNum.setText(String.valueOf(clusterT.x.get(0)));//dead
-        //outputNum.setText(String.valueOf(outputPoint));//dead
-        //double testD = parserFile.parser.tester(600.00);//dead
-
-        //debug call&
-        //showToast(String.valueOf(testD));
-        //}
+        //old
+//          if (clust.c[0].topRCornerX < tempPointx)
+//          {
+//              //showToast("outside MBR RIGHT"); //Print Debug
+//              outputNum.setText("OUTSIDE MBR");
+//          } else if (clust.c[0].topRCornerY < tempPointy)
+//          {
+//              //showToast("outside MBR TOP"); //Print Debug
+//              outputNum.setText("OUTSIDE MBR");
+//          } else if (clust.c[0].botLCornerX > tempPointx)
+//          {
+//              //showToast("outside MBR LEFT"); //Print Debug
+//              outputNum.setText("OUTSIDE MBR");
+//          } else if (clust.c[0].botLCornerY > tempPointy)
+//          {
+//              //showToast("outside MBR BOTTOM"); //Print Debug
+//              outputNum.setText("OUTSIDE MBR");
+//          }
+//          //WHEN INSIDE MBR:
+//          else
+//              {
+//              //CURRENT OUTPUT
+//              sizecc = clust.size; //TODO FIX
+//              outVal = findClosest(clust.c[0], sizecc, tempPointx, tempPointy);
+//              outputNum.setText(String.format("(%s,%s)", outVal[0], outVal[1]));
+//
+//
+//              }
       }
     }); //end of submit button
   }
   //****************************************************************************************
-  //debug func&
+  /*
+    Debug Function
+    -used to output text during GUI development
+  */
+  //****************************************************************************************
   private void showToast(String text)
   {
     Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
   }
-  public retClass.returnClass testP(String fname)
+  //****************************************************************************************
+  /*
+        Parse Function
+        -parses arff file
+        -stores information in an obj array of type "coordinates"
+  */
+  //****************************************************************************************
+  public returnClass parseArff(String fname)
   {
-
-        //Double retD = 5.0;
-       //System.out.println("RETD" + retD);
-       //coordObj.coordinates returnArray [] = new coordObj.coordinates[1];
-       retClass.returnClass r1 = new retClass.returnClass();
+       returnClass r1 = new returnClass();
        try
        {
-           DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format("test.txt")));
+           DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format(fname)));
            int lineID = 0;
            boolean exitCond = false;
            String seperated[];
@@ -238,10 +246,7 @@ public class MainActivity extends AppCompatActivity
            int j = -1;
            int inc = 0;
            int num = 0;
-           File myObj = new File(fname);
-           //Scanner myReader = new Scanner(new File(getAssets().open(fname)));
            Scanner myReader = new Scanner(textFileStream);
-           //Scanner myReader = new Scanner(myObj);
            while (myReader.hasNextLine() && exitCond == false)
            {
                String parseTop = myReader.nextLine();
@@ -250,7 +255,6 @@ public class MainActivity extends AppCompatActivity
                if (inc == 2)
                {
                    num = numCluster(last);
-                   //System.out.println("last" + last + "\n");
                    inc++;
                }
                if (inc == 3)
@@ -259,28 +263,22 @@ public class MainActivity extends AppCompatActivity
                }
                last = parseTop;
            }
-           //System.out.println("out");
-
            //Cluster Creation
-           coordObj.coordinates cluster[] = new coordObj.coordinates[num];
+           coordinates cluster[] = new coordinates[num];
            for (int i = 0; i < num; i++)
            {
-               cluster[i] = new coordObj.coordinates();
+               cluster[i] = new coordinates();
                cluster[i].x = new Vector();
                cluster[i].y = new Vector();
            }
            r1.size = num;
 
-           int loop = 0;
            String nll;
            String xi = "0";
            String yi = "0";
            String ci = "0";
            char t;
            int ind;
-           int size = 0;
-           int size0 = 0;
-           int size1 = 0;
 
            while (myReader.hasNextLine())
            {
@@ -289,39 +287,38 @@ public class MainActivity extends AppCompatActivity
 
                for (String a : seperated)
                {
-                   switch (j)
-                   {
+                   switch (j) {
                        case -1:
                            j++;
                            break;
                        case 0:
                            nll = a;
-                           //System.out.println("//nll:  " + nll); //PRINT DEBUG
                            j++;
                            break;
                        case 1:
                            xi = a;
-                           //System.out.println("//x: " + xi); //PRINT DEBUG
+                           System.out.println("//x: " + xi); //Print Debug
                            j++;
                            break;
                        case 2:
                            yi = a;
-                           //System.out.println("//y: " + yi); //PRINT DEBUG
+                           System.out.println("//y: " + yi); //Print Debug
                            j++;
                            break;
                        case 3:
                            ci = a;
                            //parsing out the cluster num
                            t = ci.charAt(7);
+                           System.out.println("?? " + t);
+                           /*
+                            ACTUALLY INPUTTING DATA INTO OBJECTS
+                            */
                            ind = Integer.parseInt(String.valueOf(t));
-            /*
-           ACTUALLY INPUTTING DATA INTO OBJECTS
-           */
-                           ind = Integer.parseInt(String.valueOf(t));
+                           System.out.println("?? " + ind);
                            cluster[ind].x.add(Double.parseDouble(xi));
                            cluster[ind].y.add(Double.parseDouble(yi));
-                           //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                           //output jargain
+
+                           //Print Debug
                            // if (ind == 0)
                            // {
                            //   size0 = cluster[0].x.size();
@@ -336,7 +333,9 @@ public class MainActivity extends AppCompatActivity
                            //   System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size1 - 1));
                            //   System.out.println("//cluster num:" + ind);
                            // }
-                           j = 0;
+                           //end
+
+                           j = 0;//reset
                            break;
                        default:
                            System.out.println("error found parsing arff");
@@ -345,41 +344,196 @@ public class MainActivity extends AppCompatActivity
            }
            myReader.close(); //close file
 
-        /*
-        Set Values of Cluster MBRs
-      */
+            /*
+            Set Values of Cluster MBRs
+            */
            //Top Right Corner x,y and Bottom Left Corner x,y
            for (int i = 0; i < num; i++)
-           {
-               cluster[i].topRCornerX = Collections.max(cluster[i].x);                                                 //RIGHT BOUND
-               cluster[i].topRCornerY = Collections.max(cluster[i].y);                                                 //LUPPER BOUND
-               System.out.println("//topRCorner: " + i + ":" + cluster[i].topRCornerX + "," + cluster[i].topRCornerY); //PRINT DEBUG
-               cluster[i].botLCornerX = Collections.min(cluster[i].x);                                                 //LEFT BOUND
-               cluster[i].botLCornerY = Collections.min(cluster[i].y);                                                 //LOWER BOUND
-               System.out.println("//botLCorner: " + i + ":" + cluster[i].botLCornerX + "," + cluster[i].botLCornerY); //PRINT DEBUG
+           {   //RIGHT,UPPER,LEFT,LOWER
+               cluster[i].topRCornerX = Collections.max(cluster[i].x);
+               cluster[i].topRCornerY = Collections.max(cluster[i].y);
+               //System.out.println("//topRCorner: " + i + ":" + cluster[i].topRCornerX + "," + cluster[i].topRCornerY); //Print Debug
+               cluster[i].botLCornerX = Collections.min(cluster[i].x);
+               cluster[i].botLCornerY = Collections.min(cluster[i].y);
+               //System.out.println("//botLCorner: " + i + ":" + cluster[i].botLCornerX + "," + cluster[i].botLCornerY); //PrintDebug
            }
-      /*
-        Set Values of SuperMBR
-      */
-           //TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-           //set return value
-           //Log.i("Debug", "fuck");
-           //Log.i("DEBUG-DEBUG", "THIS IS A TEST OF THIS");
-           r1.c = cluster;
+            /*
+            Set Values of SuperMBR
+            */
+           //TODO: CREATE SUPERMBRS**
+           //...........................
+           //...........................
+           //...........................
+           //...........................
+           //...........................
 
-           //returnArray = cluster;
-           //retD = 69.0;
-           //System.out.println("RETD2" + retD);
+           //Copy to Return Object
+           r1.c = new coordinates[num];
+           r1.c = cluster.clone();
+           //System.out.println("//Debug(parseArff): " + r1.c[0].x.get(0));//Print Debug
+
 
        }
        catch (IOException e)
        {
+           System.out.println("Caugh Exception in parseArff");
            System.out.println("error with file-start\n");
            e.printStackTrace();
            System.out.println("error with file-end\n");
        }
-       //System.out.println("RETD3" + retD);
-       //return retD;
        return r1; //return obj
   }
+    //****************************************************************************************
+  /*
+        Parse Function
+        -parses fnl file
+        -stores information in an obj of type "fnl"
+  */
+    //****************************************************************************************
+    public returnClass parseFnl(String fname)
+    {
+        returnClass r2 = new returnClass();
+        try
+        {
+            DataInputStream textFileStream = new DataInputStream(getAssets().open(String.format(fname)));
+            String seperated[];
+            Scanner myReader = new Scanner(textFileStream);
+            int j = 0;
+            fnlData fnl = new fnlData();
+            fnl.lx = new Vector();
+            fnl.ly = new Vector();
+            fnl.hx = new Vector();
+            fnl.hy = new Vector();
+            fnl.id = new Vector();
+
+            while (myReader.hasNextLine())
+            {
+                String data = myReader.nextLine();
+                seperated = data.split(":");
+
+                for (String a : seperated)
+                {
+                    switch (j)
+                    {
+                        case 0:
+                            fnl.lx.add(Double.parseDouble(a));
+                            //System.out.println("//lx: " + fnl.lx.get(0)); //PRINT DEBUG
+                            j++;
+                            break;
+                        case 1:
+                            fnl.ly.add(Double.parseDouble(a));
+                            //System.out.println("//ly: " + fnl.ly.get(0)); //PRINT DEBUG
+                            j++;
+                            break;
+                        case 2:
+                            fnl.hx.add(Double.parseDouble(a));
+                            //System.out.println("//hx: " + fnl.hx.get(0)); //PRINT DEBUG
+                            j++;
+                            break;
+                        case 3:
+                            fnl.hy.add(Double.parseDouble(a));
+                            //System.out.println("//hx: " + fnl.hy.get(0)); //PRINT DEBUG
+                            j++;
+                            break;
+                        case 4:
+                            //ignore the 0
+                            j++;
+                            break;
+                        case 5:
+                            fnl.id.add(Double.parseDouble(a));
+                            //System.out.println("//id: " + fnl.id.get(0)); //PRINT DEBUG
+                            j = 0;
+                            break;
+                        default:
+                            System.out.println("error found parsing fnl");
+                    }
+                }
+            }
+            r2.f = fnl;
+            myReader.close(); //close file
+        }
+        catch (IOException e)
+        {
+            System.out.println("Caugh Exception in parseFnl");
+            System.out.println("error with file-start\n");
+            e.printStackTrace();
+            System.out.println("error with file-end\n");
+        }
+        return r2; //return obj
+    }
+    //****************************************************************************************
+    /*
+        Helper Function
+        -returns the number of clusters by parsing specific line of input file
+    */
+    //****************************************************************************************
+    public static int numCluster(String iN)
+    {
+        int start;
+        int end;
+        int index;
+        int num = 0;
+        /*
+        Finds last instance of } and first instance of {
+        and increments by 7 to find the value at "# {cluster #....}
+        until it reaches the final cluster # in the string
+        */
+        end = iN.lastIndexOf('}', iN.length());
+        start = iN.lastIndexOf('{', iN.length());
+
+        index = start + 8;
+         /*
+        Increments by 9 to find next cluster # until reaching the last cluster # end-1
+        */
+        while (index != (end - 1))
+        {
+            num++;
+            index = index + 9;
+        }
+        num = num + 1;
+        //System.out.println("//Debug(numCluster): " + num);//Print Debug
+        return num;
+    }
+    //****************************************************************************************
+    /*
+        Primary Function
+        -finds the closest point in cluster to current trajectory position
+        -returns array with x index0, y index1
+    */
+    //****************************************************************************************
+    public static double[] findClosest(coordinates c, int arSize, double xVal, double yVal)
+    {
+        double ret[] = new double[2];
+        double pointX, pointY;
+        double closestX = 0.0;
+        double closestY = 0.0;
+        double tempDistX = 10000.00;
+        double tempDistY = 10000.00;
+        //Temp Values
+        pointX = xVal;
+        pointY = yVal;
+        /*
+        For loop that linearly searches our array for the point
+        "closest" (closestX, closestY) to our "point" (pointX, pointY) point
+        by comparing absolute values of distances
+        */
+        for (int i = 0; i < arSize; i++)
+        {
+            if (Math.abs(c.x.get(i) - pointX) <= tempDistX)
+            {
+
+                if (Math.abs((c.y.get(i)) - pointY) <= tempDistY)
+                {
+                    closestX = c.x.get(i);
+                    closestY = c.y.get(i);
+                    tempDistX = Math.abs(c.x.get(i) - pointX);
+                    tempDistY = Math.abs(c.y.get(i) - pointY);
+                }
+            }
+        }
+        ret[0] = closestX;
+        ret[1] = closestY;
+        System.out.println("//Debug(findClosest): " + ret[0] + ","  + ret[1]);//Print Debug
+        return ret;
+    }
 }
