@@ -44,6 +44,17 @@ public class parser
     traj = parseFnl(fileName2);
     //System.out.println("fnl " + traj.f.lx.get(0)); //PRINT DEBUG
 
+    coordinates clusterT = new coordinates();
+    clusterT.x = new Vector();
+    clusterT.x = new Vector();
+
+    clusterT.x = clust.c[0].x;
+    //int ss = clust.c.length;
+
+    //System.out.println("//cluster check" + clusterT.x);
+    System.out.println("//size testtttt" + clust.size);
+    //System.out.println("//array size test" + ss);
+
     int s = (int)traj.f.id.size();
     System.out.println("fnl id " + s); //PRINT DEBUG
 
@@ -259,6 +270,7 @@ public class parser
         cluster[i].x = new Vector();
         cluster[i].y = new Vector();
       }
+      r1.size = num;
 
       int loop = 0;
       String nll;
@@ -351,7 +363,8 @@ public class parser
       */
       //TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       //set return values
-      r1.size = size;
+      System.out.println("//internal size" + r1.size);
+      //r1.size = size;
       r1.c = cluster;
     }
     catch (FileNotFoundException e)

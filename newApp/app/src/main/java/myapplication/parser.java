@@ -9,29 +9,87 @@ package parserFile;
   The program is also able to find the closest point to a given point
 */
 //Headers:
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.*;
 import java.util.*;
+import android.util.Log;
 import java.util.ArrayList;
+import android.content.res.AssetManager;
+
 import java.util.Scanner;
 @SuppressWarnings("unchecked")
 
 public class parser
 {
-  public static void main(String[] args)
+  public static void main()
   {
-    //START PROGRAM
-    long startT = System.currentTimeMillis();
+    //TODO: TRANSFER TO REAL MAIN
+    //Return Creations
+//    retClass.returnClass clust = new retClass.returnClass();
+//    retClass.returnClass traj = new retClass.returnClass();
+//    /*
+//    NOTE: Main is called only to test in terminal
+//    */
+//    //START PROGRAM
+//    long startT = System.currentTimeMillis();
+//
+//    //Tests:
+//    //String fileName = "newclusterTest.arff";
+//    String fileName = "test.txt";
+//    clust = parseArff(fileName);
+//    System.out.println("R-AFTER" + retClass.returnClass.size);               //PRINT DEBUG
+//    //System.out.println("array test: " + clust.c[0].x.get(1)); //PRINT DEBUG
+//    //String fileName2 = "trajectory.fnl";
+//    String fileName2 = "testJ.txt";
+//    traj = parseFnl(fileName2);
+//    //System.out.println("fnl " + traj.f.lx.get(0)); //PRINT DEBUG
+//
+////    int s = (int)traj.f.id.size();
+////    System.out.println("fnl id " + s); //PRINT DEBUG
 
-    String fileName = "test.txt"; //FILENAME NOTE
-    parseFile(fileName);
+    //TODO:
+    /*
+      1) SIMUATE DELAY
+    */
+    // boolean pause = true;
+    // for (int i = 0; i < s; i++)
+    // {
+    //   if (pause == true)
+    //   {
+    //     try
+    //     {
+    //       Thread.sleep(2000);
+    //       pause = false;
+    //     }
+    //     catch (InterruptedException e)
+    //     {
+    //       e.printStackTrace();
+    //     }
+    //   }
+    //   else
+    //   {
+    //     findClosest(clust.c[0], traj.f, i);
+    //     pause = true;
+    //   }
+    // }
 
     //END PROGRAM
-    long endT = System.currentTimeMillis();
-    long totalT = endT - startT;
-    System.out.println("running time: " + totalT);
+//    long endT = System.currentTimeMillis();
+//    long totalT = endT - startT;
+//    System.out.println("running time: " + totalT); //PRINT DEBUG
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+
   //****************************************************************************
   /*
     Function to find the closest point to a given point
@@ -99,166 +157,79 @@ public class parser
     }
     return num;
   }
-  //****************************************************************************
+    //****************************************************************************
   /*
-    Function to parse arff file to determine the x,y coordinates
-    and store them in a respective data structures per cluster
+    Function to parse fnl file to determine the trajectory of user
   */
-  public static void parseFile(String fname)
-  {
-    //coordObj.coordinates[]
-    try
+    //****************************************************************************
+    public static retClass.returnClass parseFnl(String fname)
     {
-      int lineID = 0;
-      boolean exitCond = false;
-      String seperated[];
-      String last = "";
-      int j = -1;
-      int inc = 0;
-      int num = 0;
-      File myObj = new File(fname);
-      Scanner myReader = new Scanner(myObj);
-      while (myReader.hasNextLine() && exitCond == false)
+      retClass.returnClass r2 = new retClass.returnClass();
+      try
       {
-        String parseTop = myReader.nextLine();
-        if (parseTop.length() == 0)
-          inc++;
-        if (inc == 2)
+        String seperated[];
+        File myObj = new File(fname);
+        Scanner myReader = new Scanner(myObj);
+        int j = 0;
+        fnlD.fnlData fnl = new fnlD.fnlData();
+        fnl.lx = new Vector();
+        fnl.ly = new Vector();
+        fnl.hx = new Vector();
+        fnl.hy = new Vector();
+        fnl.id = new Vector();
+
+        while (myReader.hasNextLine())
         {
-          num = numCluster(last);
-          //System.out.println("last" + last + "\n");
-          inc++;
-        }
-        if (inc == 3)
-        {
-          exitCond = true;
-        }
-        last = parseTop;
-      }
-      //System.out.println("out");
+          String data = myReader.nextLine();
+          seperated = data.split(":");
 
-      //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
-      coordObj.coordinates cluster[] = new coordObj.coordinates[num];
-      for (int i = 0; i < num; i++)
-      {
-        cluster[i] = new coordObj.coordinates();
-        cluster[i].x = new Vector();
-        cluster[i].y = new Vector();
-        //System.out.println("i" + i);
-      }
-
-      // String seperated[];
-      // int j = 0;
-      // File myObj = new File(fname);
-      // Scanner myReader = new Scanner(myObj);
-      // myReader.useDelimiter(",");
-
-      String nll;
-      String xi = "0";
-      String yi = "0";
-      String ci = "0";
-      char t;
-      int ind;
-      int size = 0;
-      //int size0 = 0;
-      //int size1 = 0;
-
-      while (myReader.hasNextLine())
-      {
-        String data = myReader.nextLine();
-        seperated = data.split(",");
-
-        for (String a : seperated)
-        {
-          if (j == -1)
+          for (String a : seperated)
           {
-            j++;
-            continue;
-          }
-          /*
-            Sequence of if statements that parse x, y and cluster
-            number and then place those values in the proper
-            object
-            nll = identifier that i want to ignore
-            xi = x coordinate
-            yi = y coordinate
-            ci = cluster number
-          */
-          else if (j == 0) //ignore identifer at start of each line
-          {
-            nll = a;
-            //System.out.println("//nll:  " + nll);
-            j++;
-            continue;
-          }
-          else if (j == 1) //parses x
-          {
-            xi = a;
-            //System.out.println("//x: " + xi);
-            j++;
-            continue;
-          }
-          else if (j == 2) //parses y
-          {
-            yi = a;
-            //System.out.println("//y: " + yi); //
-            j++;
-            continue;
-          }
-          else if (j == 3) //parses cluster num (and assigns x,y,clusternum)
-          {
-            ci = a;
-            //parsing out the cluster num
-            t = ci.charAt(7);
-            ind = Integer.parseInt(String.valueOf(t));
-            /*
-            ACTUALLY INPUTTING DATA INTO OBJECTS
-            */
-
-            //System.out.println("ind" + ind);
-
-            ind = Integer.parseInt(String.valueOf(t));
-            cluster[ind].x.add(Double.parseDouble(xi));
-            cluster[ind].y.add(Double.parseDouble(yi));
-
-            //output jargain
-            // if (ind == 0)
-            // {
-            //   size0 = cluster[0].x.size();
-            //   System.out.println("//x INCLUSTER: " + cluster[ind].x.get(size0 - 1));
-            //   System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size0 - 1));
-            //   System.out.println("//cluster num:" + ind);
-            // }
-            // else if (ind == 1)
-            // {
-            //   size1 = cluster[1].x.size();
-            //   System.out.println("//x INCLUSTER: " + cluster[ind].x.get(size1 - 1));
-            //   System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size1 - 1));
-            //   System.out.println("//cluster num:" + ind);
-            // }
-
-            size = cluster[ind].x.size();
-            System.out.println("//x INCLUSTER: " + cluster[ind].x.get(size - 1));
-            System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size - 1));
-            System.out.println("//cluster num:" + ind);
-
-            lineID++;
-            System.out.println("///line id: " + lineID);
-            j = 0;
-            continue;
+            switch (j)
+            {
+              case 0:
+                fnl.lx.add(Double.parseDouble(a));
+                //System.out.println("//lx: " + fnl.lx.get(0)); //PRINT DEBUG
+                j++;
+                break;
+              case 1:
+                fnl.ly.add(Double.parseDouble(a));
+                //System.out.println("//ly: " + fnl.ly.get(0)); //PRINT DEBUG
+                j++;
+                break;
+              case 2:
+                fnl.hx.add(Double.parseDouble(a));
+                //System.out.println("//hx: " + fnl.hx.get(0)); //PRINT DEBUG
+                j++;
+                break;
+              case 3:
+                fnl.hy.add(Double.parseDouble(a));
+                //System.out.println("//hx: " + fnl.hy.get(0)); //PRINT DEBUG
+                j++;
+                break;
+              case 4:
+                //ignore the 0
+                j++;
+                break;
+              case 5:
+                fnl.id.add(Double.parseDouble(a));
+                //System.out.println("//id: " + fnl.id.get(0)); //PRINT DEBUG
+                j = 0;
+                break;
+              default:
+                //System.out.println("error found parsing fnl");
+            }
           }
         }
+        r2.f = fnl;
+        myReader.close(); //close file
       }
-      myReader.close(); //close file
-
-      //arraySize = i;
+      catch (FileNotFoundException e)
+      {
+        System.out.println("error with file\n");
+        e.printStackTrace();
+      }
+      return r2;
     }
-    catch (FileNotFoundException e)
-    {
-      System.out.println("error with file\n");
-      e.printStackTrace();
-    }
-    //findClosest(cluster, arraySize);
-  }
+
 } //end class
