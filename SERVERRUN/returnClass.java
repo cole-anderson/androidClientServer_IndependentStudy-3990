@@ -1,4 +1,4 @@
-package myapplication;
+
 //package retClass;
 //Headers:
 import java.io.File;
@@ -18,14 +18,12 @@ public class returnClass
   // Return data from parseArff
   public coordinates c[]; //return array of [size] clusters
   public int size;        //return size of array
-  public String test; //test paramater passing
 
   // Return data from parseFnl
   public static fnlData f;
 
-  public returnClass(int size, coordinates c[], fnlData f, String test)
+  public returnClass(int size, coordinates c[], fnlData f)
   {
-    this.test = test;
     this.size = size;
     this.c = c;
     this.f = f;
