@@ -1,4 +1,4 @@
-package myapplication;
+//package myapplication;
 /*
   coordinates is an object that contains 2 vectors
   x is the x coordinate of the points in the given cluster
@@ -23,10 +23,9 @@ public class coordinates implements Serializable
   public Vector<Double> botLCornerX;
   public Vector<Double> topRCornerY;
   public Vector<Double> botLCornerY;
-  public int index;
-  public int sizeOf;
+  public Vector<Integer> clusterID;
 
-  public coordinates(Vector<Double> x, Vector<Double> y, Vector<Double> topRCornerX, Vector<Double> botLCornerX, Vector<Double> topRCornerY, Vector<Double> botLCornerY, int index, int sizeOf)
+  public coordinates(Vector<Double> x, Vector<Double> y, Vector<Double> topRCornerX, Vector<Double> botLCornerX, Vector<Double> topRCornerY, Vector<Double> botLCornerY, Vector<Integer> clusterID)
   {
     this.x = x;
     this.y = y;
@@ -34,8 +33,7 @@ public class coordinates implements Serializable
     this.botLCornerX = botLCornerX;
     this.topRCornerY = topRCornerY;
     this.botLCornerY = botLCornerY;
-    this.index = index;
-    this.sizeOf = sizeOf;
+    this.clusterID = clusterID;
   }
   //Default Constructor
   public coordinates()

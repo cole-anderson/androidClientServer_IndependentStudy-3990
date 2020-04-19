@@ -7,12 +7,18 @@ import java.net.Socket;
 import java.util.*;
 import java.util.Scanner;
 
+import myapplication.coordinates;
+import myapplication.returnClass;
+
 @SuppressWarnings("unchecked")
 public class server
 {
 
   public static void main(String[] args) throws IOException
   {
+    int index = 0;
+    int pingid = 0;//true
+    int sizeSend = 0;
     returnClass clust = new returnClass();
     coordinates cc = new coordinates();
 
@@ -25,9 +31,20 @@ public class server
     cc.botLCornerX = new Vector();
     cc.botLCornerY = new Vector();
 
-    clust = parseArff("test.txt", 0);
-    double test = clust.c.x.get(0);      //PRINT DEBUG
-    System.out.println("test: " + test); //PRINT DEBUG
+
+    //PARSE FILE
+    clust = parseArff("test.txt", index); //1
+    int clusterNum = clust.size;
+    System.out.println("//debug cluster num : " + clusterNum);
+
+    //clust = parseArff("test.txt", index);
+//    double test = clust.c.x.get(0);      //PRINT DEBUG
+//    System.out.println("test: " + test); //PRINT DEBUG
+
+    //size of is comparison of how big index should be to loop around
+//    clust.c.sizeOf = clust.size;
+//    System.out.println("expect 2 clust.size " + clust.size);
+//    System.out.println("expect 2 clust.c.sizeof" + clust.c.sizeOf);
 
     //Declarations:
     Socket clientSocket = null;
@@ -55,30 +72,50 @@ public class server
     //Scanner in1 = new Scanner(clientSocket.getInputStream());
     // String mes;
 
-    String str = "", str2 = "";
-    int index = 0;
+    String str = "";
+
     while (!str.equals("end"))
     {
-      // System.out.println("inside WHILE");
+      //PING:
+      System.out.println("");
+      System.out.println("Waiting on Client Request");
       str = din.readUTF();
-      System.out.println("from client" + str);
-      objo.writeObject(clust.c);
+      pingid= Integer.parseInt(str);
 
-      // str2 = "world";
-      // dout.writeUTF(str2);
-      // dout.flush();
-      str = "";
-    }
-    // while (true)
-    // {
-    //
-    //   if (in1.hasNext())
-    //   {
-    //     mes = in1.nextLine();
-    //     System.out.println("Client message :" + mes);
-    //   }
-    // }
-  }
+
+      if(pingid == 0)
+      {
+        if (index < clusterNum) {
+          System.out.println("//INCREMENT INDEX");
+          index++;
+          System.out.println("<>INDEX INCR<> " + index);
+        }
+        if(index == clusterNum)
+            {
+            System.out.println("//RESET INDEX");
+            index = 0;
+            System.out.println("<>INDEX RESET<> " + index);
+            }
+        }
+      if(sizeSend == 0)
+      {
+        index = 0;
+        sizeSend = 1;
+      }
+
+        //Send Object
+        System.out.println("//%%INDEX VAL" + index);
+        System.out.println("//%%ARRAY SIZE" + clust.ar.length);
+        System.out.println("Sending Object...");
+        System.out.println("TESTA " + clust.ar[index].x);
+        System.out.println("TESTB " + clust.ar[index].y);
+        objo.writeObject(clust.ar[index]);
+        objo.flush();
+        pingid = 1;
+      }
+
+    }//end loop while server running
+  //end main
   //****************************************************************************************
   public static returnClass parseArff(String fname, int index)
   {
@@ -113,6 +150,11 @@ public class server
       }
       //Cluster Creation
       coordinates cluster[] = new coordinates[num];
+//      if(index > num)
+//      {
+//        //loop around
+//        index = 0;
+//      }
       for (int i = 0; i < num; i++)
       {
         cluster[i] = new coordinates();
@@ -125,7 +167,8 @@ public class server
         cluster[i].botLCornerX = new Vector();
         cluster[i].botLCornerY = new Vector();
       }
-      //r1.size = num;
+      r1.size = num;
+
 
       String nll;
       String xi = "0";
@@ -203,10 +246,10 @@ public class server
       {
         cluster[i].topRCornerX.add(Collections.max(cluster[i].x)); //RIGHT BOUND
         cluster[i].topRCornerY.add(Collections.max(cluster[i].y)); //LUPPER BOUND
-        //System.out.println("//topRCorner: " + i + ":" + cluster[i].topRCornerX + "," + cluster[i].topRCornerY); //PRINT DEBUG
+        System.out.println("//topRCorner: " + i + ":" + cluster[i].topRCornerX.get(0) + "," + cluster[i].topRCornerY.get(0)); //PRINT DEBUG
         cluster[i].botLCornerX.add(Collections.min(cluster[i].x)); //LEFT BOUND
         cluster[i].botLCornerY.add(Collections.min(cluster[i].y)); //LOWER BOUND
-        //System.out.println("//botLCorner: " + i + ":" + cluster[i].botLCornerX + "," + cluster[i].botLCornerY); //PRINT DEBUG
+        System.out.println("//botLCorner: " + i + ":" + cluster[i].botLCornerX.get(0) + "," + cluster[i].botLCornerY.get(0)); //PRINT DEBUG
       }
       /*
         Set Values of SuperMBR
@@ -216,7 +259,14 @@ public class server
       //set return values
       //System.out.println("//internal size" + r1.size);
       //r1.size = size;
-      r1.c = cluster[0];
+
+      //Copy to Return Object
+      r1.ar = new coordinates[num];
+      r1.ar = cluster.clone();
+
+      //r1.c = cluster[index];
+      //r1.c.index = index;
+      //r1.index = index;
     }
     catch (IOException e)
     {

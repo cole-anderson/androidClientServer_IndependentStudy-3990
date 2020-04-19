@@ -21,12 +21,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.lang.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.*;
+import java.io.*;
+import java.net.*;
 
 
 //import static myapplication.client.ping;
@@ -35,12 +38,30 @@ import java.util.*;
 public class MainActivity extends AppCompatActivity {
 
   private Socket client;
-  private Boolean ping = false;
-  DataInputStream din;
+  public Boolean ping = false;
+  private DataInputStream din;
   private DataOutputStream dout;
+  private ObjectInputStream obji;
+  private ObjectOutputStream objo;
   private PrintWriter pw;
   private String message = "false";
-  Boolean rect = false;
+
+  public Boolean rect= true;
+  public int pingid = 0;
+  private int index = 0;
+  public int afterVal = 0;
+  private int sizecc = 0;
+  private int sizeNUM = 0;
+  private  double outVal[] = new double[2];
+  public int loc = -1;
+
+  //public returnClass ret = new returnClass();
+
+  public coordinates cluster = new coordinates();//when returning coordinates
+  public returnClass clustR = new returnClass();//when returning return class
+
+
+
 
   double tempPointx = 0;
   double tempPointy = 0;
@@ -77,70 +98,152 @@ public class MainActivity extends AppCompatActivity {
     //System.out.println("array 1 start (EXP 15)" + clust.c[1].x.get(0)); //DELETE
 
 //    //String fileName2 = "trajectory.fnl";
-//    String fileName2 = "testJ.txt";
-//    traj = parseFnl(fileName2); //TODO FIX**
+      String fileName2 = "testJ.txt";
+      traj = parseFnl(fileName2); //TODO FIX**
+      System.out.println("! Trajectory " + traj.f.lx + traj.f.ly);
+
 //    System.out.println("fnl" + traj.f.hx);
     //end delete
+    cluster.x = new Vector();
+    cluster.y = new Vector();
+    cluster.topRCornerX = new Vector();
+    cluster.topRCornerY = new Vector();
+    cluster.botLCornerX = new Vector();
+    cluster.botLCornerY = new Vector();
+
+
+
     /*
     Submit Button
     */
     findPoint = (Button) findViewById(R.id.findPoint);
     findPoint.setOnClickListener(new View.OnClickListener() {
-      int loc = 0;
-      int j = 0;
 
       @Override
       public void onClick(View v) {
       System.out.println("CLICK BUTTON");
-        //TODO IF INSIDE MBR: (HAVE A BOOL VALUE)
+        //TRAJECTORY
+        if (loc < traj.f.hx.size()-1)
+          loc++;
+        else
+          loc = 0;
+        tempPointx = traj.f.lx.get(loc);
+        tempPointy = traj.f.ly.get(loc);
+      textView2.setText(String.format("(%s,%s)", tempPointx, tempPointy));
 
-//          if (rect == false)
-         // {
             new Thread(new Runnable()
             {
               @Override
               public void run()
               {
-                System.out.println("enter threading");
+                //CLUSTERING
                 try {
+                  System.out.println("----------------INSIDE TRY----------------");
                   String str1 = "";
                   String str2 = "";
-                  System.out.println("got hereTRY1");
+                  //System.out.println("got hereTRY1");
                   String hostID = "10.0.2.2";
                   int portID = 4445;
-                  if(!ping)
+
+                  if(ping == false)
                   {
+                    //ONLY CALLED FIRST RUN
                     client = new Socket(hostID, portID);
                     dout = new DataOutputStream(client.getOutputStream());
                     din = new DataInputStream(client.getInputStream());
+                    objo = new ObjectOutputStream(client.getOutputStream());
+                    obji = new ObjectInputStream(client.getInputStream());
+                    //ONLY CALLS ON FIRST OCCURANCE
+                    System.out.println("REQUESTING FIRST MBR");
+                    //SEND PING ID = 0:
+                    str1 = Integer.toString(pingid);
+                    dout.writeUTF(str1);
+                    dout.flush();
+                    pingid = 1;
+
+                    //Reading New MBR:
+                    cluster = (coordinates) obji.readObject(); //error
+                    System.out.println("CLUSTER.x: " + cluster.x);
+                    System.out.println("CLUSTER.y: " + cluster.y);
+                    System.out.println("TOPX" +cluster.topRCornerX);
+                    System.out.println("TOPX" +cluster.topRCornerY);
+                    System.out.println("TOPX" +cluster.botLCornerX);
+                    System.out.println("TOPX" +cluster.botLCornerY);
+                    rect = true;
                     ping = true;
+                    System.out.println("//exit first iterate");
                   }
-                  System.out.println("Writing");
-                  str1 = "hello";
-                  dout.writeUTF(str1);
-                  dout.flush();
 
-                  System.out.println("Reading");
-                  str2 = din.readUTF();
-                  System.out.println("From Server: " + str2);
-                  str2 = "";
+                  if(tempPointx > cluster.topRCornerX.get(0) || tempPointy > cluster.topRCornerY.get(0) || tempPointx < cluster.botLCornerX.get(0) || tempPointy < cluster.botLCornerY.get(0))
+                  {
+                    //outputNum.setText("Requesting new MBR from Server. Please Wait 5 Seconds Before Finding Closest");
+                    System.out.println("----------------IF OUTSIDE CLUSTER MBR----------------");
+                    System.out.println("FALSE");
+                    rect = false;
+                  }
 
+                  //IFOUTSIDE MBR
+                  if (rect == false)
+                  {
+                    //IF OUTSIDE MBR QUERY FOR NEW MBR
+                    System.out.println("----------------IF RECT FALSE----------------");
+                    System.out.println("REQ");
 
+                    //SEND PING ID = 0:
+                    pingid = 0;
+                    str1 = Integer.toString(pingid);
+                    dout.writeUTF(str1);
+                    dout.flush();
 
-//                  pw = new PrintWriter(client.getOutputStream());
-//                  pw.write(message);
-//                  pw.flush();
-//                  pw.close();
-                  //client.close();
+                    //Reading New MBR:
+                    cluster = (coordinates) obji.readObject(); //error
+                    System.out.println("CLUSTER.x: " + cluster.x);
+                    System.out.println("CLUSTER.y: " + cluster.y);
+                    System.out.println("TOPX" +cluster.topRCornerX);
+                    System.out.println("TOPX" +cluster.topRCornerY);
+                    System.out.println("TOPX" +cluster.botLCornerX);
+                    System.out.println("TOPX" +cluster.botLCornerY);
+                    rect = true;
+                    pingid = 1;
+                  }
+                  //IF INSIDE MBR
+                  if(rect == true)
+                  {
+                    System.out.println("----------------IF RECT TRUE----------------");
+                    System.out.println("TRUE");
+                    //IF INSIDE MBR KEEP LOOPING THROUGH COMPARING
+                    outVal = findClosest(cluster, tempPointx, tempPointy);
+//                  outputNum.setText(String.format("(%s,%s)", outVal[0], outVal[1]));
+                  }
+
+                  //MBR Determiner
                 }
-                catch (IOException e) {
+                catch (IOException| ClassNotFoundException e) {
                   System.out.println("Exception Caught @114");
                   e.printStackTrace();
                 }
               }
             }).start();
+        System.out.println("----------------EXIT THREADS----------------");
 
-            System.out.println("exited threading");
+          if (rect == true) {
+            //Display Closest Point in Cluster
+            System.out.println("----------------IF RECT TRUE----------------");
+            System.out.println(outVal[0]+ " - " + outVal[1]);
+            outputNum.setText(String.format("(%s,%s)", outVal[0], outVal[1]));
+          }
+          else if (rect == false) {
+            System.out.println("//REQUESTING NEW MBR DUE TO BOUNDS");
+            outputNum.setText("Requesting new MBR from Server. Please Wait 5 Seconds Before Finding Closest");
+            //loc --;
+          }
+        System.out.println("----------------END ON CLICK----------------");
+      }//end onclick
+    }); //end of submit button
+  }//end on create
+
+
+          /////////////////////////////////////////////////
 
 
           //}
@@ -268,10 +371,7 @@ public class MainActivity extends AppCompatActivity {
 //            outputNum.setText(String.format("(%s,%s)", outVal[0], outVal[1]));
 //
 //
-//          }
-      }//end onclick
-    }); //end of submit button
-  }//end on create
+//
 
   //****************************************************************************************
   /*
@@ -370,7 +470,7 @@ public class MainActivity extends AppCompatActivity {
     */
   //FIND CLOSEST ON MOBILE DEVICE
   //****************************************************************************************
-  public static double[] findClosest(coordinates c, int arSize, double xVal, double yVal)
+  public static double[] findClosest(coordinates c, double xVal, double yVal)
   {
 
     double ret[] = new double[2];
@@ -392,7 +492,10 @@ public class MainActivity extends AppCompatActivity {
         closestY = c.y.get(i);
       }
     }
-
+    System.out.println("");
+    System.out.println("CURRENT:"  +  xVal + "," + yVal);
+    System.out.println("CLOSEST:"  + closestX + "," + closestY);
+    System.out.println("");
     ret[0] = closestX;
     ret[1] = closestY;
     return ret;
