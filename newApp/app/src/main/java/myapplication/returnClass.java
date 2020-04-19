@@ -18,10 +18,10 @@ public class returnClass implements Serializable
   */
 
   // Return data from parseArff
-  public coordinates c; //cluster
+  public coordinates c;    //cluster
   public coordinates ar[]; //array of clusters
-  public int size;      //return size of array
-  public int index;     //index of currently read
+  public int size;         //return size of array
+  public int index;        //index of currently read
 
   // Return data from parseFnl
   public static fnlData f;

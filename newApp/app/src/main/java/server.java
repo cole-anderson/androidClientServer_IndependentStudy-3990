@@ -1,4 +1,7 @@
-
+/*
+  SERVERSIDE APPLICATION THAT PARSES ARFF FILE TO GENERATE DATA STRUCTURES CONTRAINING THE CLUSTER MBRS
+  AND TRANSMITS A GIVEN MBR TO THE USER VIA SOCKETS
+ */
 import java.io.*;
 import java.io.IOException;
 import java.net.*;
@@ -6,45 +9,34 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 import java.util.Scanner;
-
 import myapplication.coordinates;
 import myapplication.returnClass;
 
 @SuppressWarnings("unchecked")
 public class server
 {
-
   public static void main(String[] args) throws IOException
   {
     int index = 0;
-    int pingid = 0;//true
+    int pingid = 0; //true
     int sizeSend = 0;
     returnClass clust = new returnClass();
     coordinates cc = new coordinates();
-
     cc.x = new Vector();
     cc.y = new Vector();
     cc.y = new Vector();
-
     cc.topRCornerX = new Vector();
     cc.topRCornerY = new Vector();
     cc.botLCornerX = new Vector();
     cc.botLCornerY = new Vector();
 
+    //REALFILE VS TESFILE
+    String fileName = "clusterfnl.arff";
+    //String fileName = "test.txt";
+    clust = parseArff(fileName, index); //1
 
-    //PARSE FILE
-    clust = parseArff("test.txt", index); //1
     int clusterNum = clust.size;
-    System.out.println("//debug cluster num : " + clusterNum);
-
-    //clust = parseArff("test.txt", index);
-//    double test = clust.c.x.get(0);      //PRINT DEBUG
-//    System.out.println("test: " + test); //PRINT DEBUG
-
-    //size of is comparison of how big index should be to loop around
-//    clust.c.sizeOf = clust.size;
-//    System.out.println("expect 2 clust.size " + clust.size);
-//    System.out.println("expect 2 clust.c.sizeof" + clust.c.sizeOf);
+    //System.out.println("//debug cluster num : " + clusterNum); //PRINT DEBUG
 
     //Declarations:
     Socket clientSocket = null;
@@ -62,15 +54,10 @@ public class server
       e.printStackTrace();
     }
 
-    //read & display the message
-    //BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     DataOutputStream dout = new DataOutputStream(clientSocket.getOutputStream());
     DataInputStream din = new DataInputStream(clientSocket.getInputStream());
     ObjectOutputStream objo = new ObjectOutputStream(clientSocket.getOutputStream());
     ObjectInputStream obji = new ObjectInputStream(clientSocket.getInputStream());
-
-    //Scanner in1 = new Scanner(clientSocket.getInputStream());
-    // String mes;
 
     String str = "";
 
@@ -80,42 +67,40 @@ public class server
       System.out.println("");
       System.out.println("Waiting on Client Request");
       str = din.readUTF();
-      pingid= Integer.parseInt(str);
+      pingid = Integer.parseInt(str);
 
-
-      if(pingid == 0)
+      if (pingid == 0)
       {
-        if (index < clusterNum) {
-          System.out.println("//INCREMENT INDEX");
+        if (index < clusterNum)
+        {
+          //System.out.println("//INCREMENT INDEX");//PRINT DEBUG
           index++;
-          System.out.println("<>INDEX INCR<> " + index);
+          //System.out.println("<>INDEX INCR<> " + index);//PRINT DEBUG
         }
-        if(index == clusterNum)
-            {
-            System.out.println("//RESET INDEX");
-            index = 0;
-            System.out.println("<>INDEX RESET<> " + index);
-            }
+        if (index == clusterNum)
+        {
+          System.out.println("//RESET INDEX"); //PRINT DEBUG
+          index = 0;
+          System.out.println("<>INDEX RESET<> " + index); //PRINT DEBUG
         }
-      if(sizeSend == 0)
+      }
+      if (sizeSend == 0)
       {
         index = 0;
         sizeSend = 1;
       }
+      //Send Object
+      //System.out.println("//%%INDEX VAL" + index);//PRINT DEBUG
+      //System.out.println("//%%ARRAY SIZE" + clust.ar.length);//PRINT DEBUG
+      System.out.println("Sending Object...");
+      //System.out.println("TESTA " + clust.ar[index].x);//PRINT DEBUG
+      //System.out.println("TESTB " + clust.ar[index].y);//PRINT DEBUG
+      objo.writeObject(clust.ar[index]);
+      objo.flush();
+      pingid = 1;
+    } //END SERVER LOOP
+  }   //END FUNC
 
-        //Send Object
-        System.out.println("//%%INDEX VAL" + index);
-        System.out.println("//%%ARRAY SIZE" + clust.ar.length);
-        System.out.println("Sending Object...");
-        System.out.println("TESTA " + clust.ar[index].x);
-        System.out.println("TESTB " + clust.ar[index].y);
-        objo.writeObject(clust.ar[index]);
-        objo.flush();
-        pingid = 1;
-      }
-
-    }//end loop while server running
-  //end main
   //****************************************************************************************
   public static returnClass parseArff(String fname, int index)
   {
@@ -150,11 +135,6 @@ public class server
       }
       //Cluster Creation
       coordinates cluster[] = new coordinates[num];
-//      if(index > num)
-//      {
-//        //loop around
-//        index = 0;
-//      }
       for (int i = 0; i < num; i++)
       {
         cluster[i] = new coordinates();
@@ -168,8 +148,6 @@ public class server
         cluster[i].botLCornerY = new Vector();
       }
       r1.size = num;
-
-
       String nll;
       String xi = "0";
       String yi = "0";
@@ -205,6 +183,7 @@ public class server
             break;
           case 3:
             ci = a;
+
             //parsing out the cluster num
             t = ci.charAt(7);
             ind = Integer.parseInt(String.valueOf(t));
@@ -214,22 +193,6 @@ public class server
             ind = Integer.parseInt(String.valueOf(t));
             cluster[ind].x.add(Double.parseDouble(xi));
             cluster[ind].y.add(Double.parseDouble(yi));
-            //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            //output jargain
-            // if (ind == 0)
-            // {
-            //   size0 = cluster[0].x.size();
-            //   System.out.println("//x INCLUSTER: " + cluster[ind].x.get(size0 - 1));
-            //   System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size0 - 1));
-            //   System.out.println("//cluster num:" + ind);
-            // }
-            // else if (ind == 1)
-            // {
-            //   size1 = cluster[1].x.size();
-            //   System.out.println("//x INCLUSTER: " + cluster[ind].x.get(size1 - 1));
-            //   System.out.println("//Y INCLUSTER: " + cluster[ind].y.get(size1 - 1));
-            //   System.out.println("//cluster num:" + ind);
-            // }
             j = 0;
             break;
           default:
@@ -246,27 +209,17 @@ public class server
       {
         cluster[i].topRCornerX.add(Collections.max(cluster[i].x)); //RIGHT BOUND
         cluster[i].topRCornerY.add(Collections.max(cluster[i].y)); //LUPPER BOUND
-        System.out.println("//topRCorner: " + i + ":" + cluster[i].topRCornerX.get(0) + "," + cluster[i].topRCornerY.get(0)); //PRINT DEBUG
+        //System.out.println("//topRCorner: " + i + ":" + cluster[i].topRCornerX.get(0) + "," + cluster[i].topRCornerY.get(0)); //PRINT DEBUG
         cluster[i].botLCornerX.add(Collections.min(cluster[i].x)); //LEFT BOUND
         cluster[i].botLCornerY.add(Collections.min(cluster[i].y)); //LOWER BOUND
-        System.out.println("//botLCorner: " + i + ":" + cluster[i].botLCornerX.get(0) + "," + cluster[i].botLCornerY.get(0)); //PRINT DEBUG
+        //System.out.println("//botLCorner: " + i + ":" + cluster[i].botLCornerX.get(0) + "," + cluster[i].botLCornerY.get(0)); //PRINT DEBUG
       }
       /*
-        Set Values of SuperMBR
+        Set Values of SuperMBR TODO*
       */
-      //TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-      //set return values
-      //System.out.println("//internal size" + r1.size);
-      //r1.size = size;
-
       //Copy to Return Object
       r1.ar = new coordinates[num];
       r1.ar = cluster.clone();
-
-      //r1.c = cluster[index];
-      //r1.c.index = index;
-      //r1.index = index;
     }
     catch (IOException e)
     {
