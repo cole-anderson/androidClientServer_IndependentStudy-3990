@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
     //System.out.println("array 0 start (EXP 5)" + clust.c[0].x.get(0)); //DELETE
     //System.out.println("array 1 start (EXP 15)" + clust.c[1].x.get(0)); //DELETE
 
-    String fileName2 = "trajectory.fnl";
-    //String fileName2 = "testJ.txt";
+    //String fileName2 = "trajectory.fnl";
+    String fileName2 = "testJ.txt";
     traj = parseFnl(fileName2); //TODO FIX**
     System.out.println("! Trajectory " + traj.f.lx + traj.f.ly);
 

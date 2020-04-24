@@ -31,8 +31,8 @@ public class server
     cc.botLCornerY = new Vector();
 
     //REALFILE VS TESFILE
-    String fileName = "clusterfnl.arff";
-    //String fileName = "test.txt";
+    //String fileName = "clusterfnl.arff";
+    String fileName = "test.txt";
     clust = parseArff(fileName, index); //1
 
     int clusterNum = clust.size;
@@ -214,9 +214,7 @@ public class server
         cluster[i].botLCornerY.add(Collections.min(cluster[i].y)); //LOWER BOUND
         //System.out.println("//botLCorner: " + i + ":" + cluster[i].botLCornerX.get(0) + "," + cluster[i].botLCornerY.get(0)); //PRINT DEBUG
       }
-      /*
-        Set Values of SuperMBR TODO*
-      */
+
       //Copy to Return Object
       r1.ar = new coordinates[num];
       r1.ar = cluster.clone();
