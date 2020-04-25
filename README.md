@@ -17,3 +17,4 @@ Phase 1: (Complete)
 Phase 2: (ongoing): 
 -Assigning contextual data to each "cluster point" where in the client doesnt just see the closest point but extra information in regards to that point
 -Actual map integration?
+-TBD
