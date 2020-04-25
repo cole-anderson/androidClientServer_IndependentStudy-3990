@@ -22,49 +22,14 @@
             android:layout_below="@+id/linearLayout2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="21dp"
-            android:text="INPUT YOUR X AND Y" />
+            android:text="Your Location" />
 
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/xCoordinateInput"
-        android:layout_width="112dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="86dp"
-        android:layout_marginLeft="86dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="-60dp"
-        android:layout_marginRight="-60dp"
-        android:layout_toStartOf="@+id/linearLayout2"
-        android:layout_toLeftOf="@+id/linearLayout2"
-        android:ems="10"
-        android:hint="X coordinate"
-        android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/yCoordinateInput"
-        android:layout_width="111dp"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="83dp"
-        android:layout_marginRight="83dp"
-        android:ems="10"
-        android:hint="Y coordinate"
-        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/outputNum"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
-        android:gravity="center"
         android:layout_below="@+id/linearLayout2"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -75,14 +40,16 @@
         android:layout_marginTop="196dp"
         android:layout_marginEnd="129dp"
         android:layout_marginRight="129dp"
+        android:gravity="center"
+        android:text="Closest Point in Cluster"
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/submitButton"
+        android:id="@+id/findPoint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="280dp"
-        android:text="Submit" />
+        android:text="Next Point" />
 
 </RelativeLayout>

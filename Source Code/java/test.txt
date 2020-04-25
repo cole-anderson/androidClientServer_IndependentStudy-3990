@@ -13,12 +13,10 @@
 4,45.0, 45.0,cluster0
 5,50.0, 50.0,cluster0
 6,18.0, 8.0,cluster0
-7,51.0, 50.0,cluster1
-8,58.0, 45.0,cluster1
-9,67.0, 25.0,cluster1
-10,73.0, 35.0,cluster1
-11,80.0, 45.0,cluster1
-12,88.0, 50.0,cluster1
-13,99.0, 8.0,cluster1
-
-
+7,51.0, 52.0,cluster1
+8,58.0, 71.0,cluster1
+9,67.0, 87.0,cluster1
+10,73.0, 88.0,cluster1
+11,80.0, 90.0,cluster1
+12,88.0, 95.0,cluster1
+13,99.0, 99.0,cluster1
