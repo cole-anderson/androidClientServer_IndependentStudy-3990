@@ -16,7 +16,7 @@ Server: Java based socket server that is able to
 - determine number of clusters from the arff file header information
 - send a given data structure to the client upon request
 
-Phase 2: (ongoing):
+Phase 2: (cancelled):
 - Assigning contextual data to each "cluster point" where in the client doesnt just see the closest point but extra information in regards to that point
 - Actual map integration?
 
