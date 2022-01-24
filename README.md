@@ -1,7 +1,7 @@
 # 3990Project
 
 Independent Study based on the study of clustering and how it can be applied to query processing.
-Implmeneted a client app(android) and server where the server only transmits data to the client is the client "location" is outside a previously generated and sent minumum bound rectangle(MBR) based off of a number of clusters of points. The client incrementally moved along a preset path(trajectory) where it finds the closest point (x,y) in the cluster to its given location (x,y)
+Implemeneted a client app(android) and server where the server only transmits data to the client is the client "location" is outside a previously generated and sent minumum bound rectangle(MBR) based off of a number of clusters of points. The client incrementally moved along a preset path(trajectory) where it finds the closest point (x,y) in the cluster to its given location (x,y)
 
 Phase 1: (Complete)
 
