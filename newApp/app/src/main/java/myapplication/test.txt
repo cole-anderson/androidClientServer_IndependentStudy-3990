@@ -1,0 +1,24 @@
+@relation mainnew-weka.filters.unsupervised.attribute.Remove-R1_clustered
+
+@attribute Instance_number numeric
+@attribute 769.948669 numeric
+@attribute 2982.984131 numeric
+@attribute Cluster {cluster0,cluster1}
+
+@data
+0,1.0, 1.0,cluster0
+1,15.0, 15.0,cluster0
+2,25.0, 25.0,cluster0
+3,35.0, 35.0,cluster0
+4,45.0, 45.0,cluster0
+5,50.0, 50.0,cluster0
+6,18.0, 8.0,cluster0
+7,51.0, 50.0,cluster1
+8,58.0, 45.0,cluster1
+9,67.0, 25.0,cluster1
+10,73.0, 35.0,cluster1
+11,80.0, 45.0,cluster1
+12,88.0, 50.0,cluster1
+13,99.0, 8.0,cluster1
+
+
